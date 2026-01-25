@@ -1,0 +1,10 @@
+[package]
+name = "ganymede-hotbar"
+version = "0.1.0"
+edition = "2021"
+authors = ["Waylestia Team"]
+description = "Barre du haut GTK pour shell Wayland custom"
+
+[dependencies]
+gtk = "0.18"
+glib = "0.18"
