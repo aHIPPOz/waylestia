@@ -1,3 +1,3 @@
 # Assets
 
-Logos, icônes, wallpapers, thèmes pour Ganymede Shell.
+Logos, icônes, wallpapers, thèmes pour Waylestia.

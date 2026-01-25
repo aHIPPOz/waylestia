@@ -4,11 +4,11 @@ use gtk::{Application, ApplicationWindow, HeaderBar, Label, Button};
 
 fn main() {
     let app = Application::builder()
-        .application_id("dev.ganymede.hotbar")
+        .application_id("dev.waylestia.hotbar")
         .build();
     app.connect_activate(|app| {
         let bar = HeaderBar::builder()
-            .title(Some("Ganymede Hotbar"))
+            .title(Some("Waylestia Hotbar"))
             .show_close_button(false)
             .build();
         let time_label = Label::new(Some("12:34"));
@@ -17,7 +17,7 @@ fn main() {
         bar.pack_end(&dashboard_btn);
         let win = ApplicationWindow::builder()
             .application(app)
-            .title("Ganymede Hotbar")
+            .title("Waylestia Hotbar")
             .decorated(false)
             .opacity(0.5)
             .child(&bar)
