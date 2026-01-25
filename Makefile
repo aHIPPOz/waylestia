@@ -1,25 +1,25 @@
-# Makefile multi-langages pour Ganymede Shell
+# Makefile multi-langages pour Waylestia (suite OS complète)
 
-.PHONY: all core hotbar runtime widgets proto clean
+.PHONY: all core shell widgets engine proto clean
 
-all: core hotbar runtime widgets
+all: core shell widgets engine
 
 core:
-	cd ganymede-core && cargo build
+	cd waylestia-core && cargo build
 
-hotbar:
-	cd ganymede-hotbar && cargo build
-
-runtime:
-	cd ganymede-runtime && deno task start
+shell:
+	cd waylestia-shell && deno task start
 
 widgets:
-	cd ganymede-widgets && flutter build linux || echo "Flutter non installé"
+	cd waylestia-widgets && flutter build web
+
+engine:
+	cd waylestia-engine/servo && ./build-servo.sh
 
 proto:
-	@echo "Protos dans ./proto/ (voir fichiers .proto)"
+	@echo "Protos dans ./waylestia-proto/ (voir fichiers .proto)"
 
 clean:
-	cd ganymede-core && cargo clean
-	cd ganymede-hotbar && cargo clean
-	cd ganymede-widgets && flutter clean || true
+	cd waylestia-core && cargo clean
+	cd waylestia-widgets && flutter clean || true
+	cd waylestia-engine/servo && ./clean-servo.sh || true
