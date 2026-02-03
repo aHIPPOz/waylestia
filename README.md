@@ -1,48 +1,154 @@
-# Waylestia — Suite OS Moderne
+# 🚀 Waylestia — Suite OS Moderne
 
-**Wayland shell complet, modulaire, extensible, concurrent de KDE/Plasma, utilise Hyprland comme composant wayland, widgets Servo/Flutter, barres GTK/JS, support Wallpaper Engine.**
+**Un environnement de bureau Linux modulaire et extensible, concurrent de KDE/Plasma, basé sur Wayland & Hyprland.**
 
-## Architecture
+> Waylestia veut réunir **personnalisation**, **performance**, **simplicité** et **solidité** dans un seul écosystème moderne.
+
+---
+
+## 👋 C’est quoi Waylestia ?
+
+Salut !  
+Le projet est porté par la **Waylestia Team**, un collectif de passionnés qui veulent pousser plus loin l’expérience desktop Linux.
+
+L’objectif n’est pas de “réinventer Linux”, mais de **construire une suite cohérente**, moderne et hackable, pensée pour Wayland dès le départ.
+
+---
+
+## 🎯 Les objectifs
+
+| Objectif | Inspiration |
+|--------|-------------|
+| 🎨 Personnalisation extrême | Arch Linux |
+| 🤝 Simplicité d’usage | Linux Mint |
+| ⚡ Performances & optimisation | Gentoo / CachyOS |
+| 🛡️ Stabilité & sécurité | Debian / Qubes OS |
+
+👉 **Le meilleur de chaque monde, sans compromis.**
+
+---
+
+## 🧱 Architecture générale
 
 ```
-Hyprland (WM) <-> waylestia-core (Rust) <-> waylestia-shell (JS/Deno/GTK) <-> waylestia-engine (Servo, widgets web)
-                                   |-> waylestia-widgets (Flutter web)
-                                   |-> waylestia-assets, waylestia-scripts, waylestia-proto
-```
 
-- **waylestia-core** : Daemon principal (état global, IPC Hyprland, perf, media, sécurité, API locale)
-- **waylestia-shell** : Barres, surfaces, UI système (JS/Deno, GTK via FFI, IPC, orchestration)
-- **waylestia-engine** : Servo embarqué (widgets web, Flutter web, HTML/CSS, API native, Wallpaper Engine)
-- **waylestia-widgets** : Widgets Flutter web (compilés, servis par Servo)
-- **waylestia-assets** : Wallpapers, icônes, thèmes
-- **waylestia-scripts** : Scripts build, install, maintenance
-- **waylestia-proto** : Schémas IPC (proto, JSON)
+Hyprland (WM)
+<-> waylestia-core (Rust)
+<-> waylestia-shell (JS / Deno / GTK)
+<-> waylestia-engine (Servo, widgets web)
+|-> waylestia-widgets (Flutter web)
+|-> waylestia-assets
+|-> waylestia-scripts
+|-> waylestia-proto
 
-## Build rapide
+````
 
-- Rust : `cd waylestia-core && cargo build`
-- JS/GTK : `cd waylestia-shell && deno task start`
-- Flutter web : `cd waylestia-widgets && flutter build web`
-- Servo : build custom (voir waylestia-engine/servo)
+### Composants
 
-## Fonctionnalités prévues
+- **waylestia-core**  
+  Daemon principal en Rust : état global, IPC Hyprland, performances, médias, sécurité, API locale
 
-- Gestion Hyprland avancée (tiling, workspaces, input, IPC)
-- Barres et surfaces UI (GTK via JS, multi-process)
-- Widgets web (Flutter web, HTML/CSS, animations, opacité, night/neon)
-- Moteur Servo embarqué (API native, IPC, extensibilité)
-- Intégration Wallpaper Engine (wallpapers animés, hooks, API)
-- IPC robuste (core <-> shell <-> engine <-> widgets)
-- Sécurité, stabilité, extensibilité (modulaire, clean, scalable)
+- **waylestia-shell**  
+  UI système : barres, surfaces, logique desktop  
+  (JS/Deno + GTK via FFI)
 
-## Roadmap
+- **waylestia-engine**  
+  Servo embarqué pour widgets web, Flutter web, HTML/CSS  
+  + API native + support Wallpaper Engine
 
-1. Core Rust (IPC, state, perf, media, sécurité)
-2. Shell/Barres GTK/JS (UI, IPC, orchestration)
-3. Widgets Servo/Flutter web (API, build, intégration)
-4. Wallpaper Engine (intégration, API, compatibilité)
+- **waylestia-widgets**  
+  Widgets Flutter compilés en web
+
+- **waylestia-assets**  
+  Thèmes, wallpapers, icônes
+
+- **waylestia-scripts**  
+  Build, install, maintenance
+
+- **waylestia-proto**  
+  Schémas IPC (proto / JSON)
+
+---
+
+## 🛠️ Stack technique
+
+- **Rust** — cœur du système
+- **Hyprland** — composant Wayland (WM)
+- **Wayland** — pas de X11
+- **Servo** — moteur web embarqué
+- **JavaScript / Deno / GJS**
+- **GTK**
+- **Flutter Web**
+
+---
+
+## ⚡ Build rapide
+
+```bash
+# Core
+cd waylestia-core && cargo build
+
+# Shell
+cd waylestia-shell && deno task start
+
+# Widgets Flutter
+cd waylestia-widgets && flutter build web
+````
+
+> Servo nécessite un build custom (voir `waylestia-engine/servo`)
+
+---
+
+## 🧩 Fonctionnalités prévues
+
+* Gestion avancée Hyprland (tiling, workspaces, input, IPC)
+* Barres et UI système GTK/JS
+* Widgets web animés (Servo / Flutter)
+* Intégration Wallpaper Engine
+* IPC robuste entre tous les modules
+* Architecture modulaire, propre et scalable
+
+---
+
+## 🗺️ Roadmap
+
+1. Core Rust (IPC, état global, sécurité)
+2. Shell & barres UI
+3. Widgets Servo / Flutter web
+4. Wallpaper Engine
 5. Polish UX, modules avancés, CI/CD
 
 ---
 
-**Contact :** aHIPPOz / Waylestia Team
+## 👥 Équipe
+
+| Pseudo      | Rôle                  |
+| ----------- | --------------------- |
+| **A2ER7Y**  | Gestion de projet     |
+| **aHIPPOz** | Développeur principal |
+| **pyrrox**  | Développeur           |
+
+---
+
+## 🤝 Recrutement
+
+Projet **100% passion** (non rémunéré).
+
+* 🇫🇷 Français uniquement (vocaux réguliers)
+* 🔧 Profils recherchés :
+
+  * Dev **Rust**
+  * Dev **Dart / Flutter**
+
+👉 Intéressé ? Viens sur le Discord et présente-toi !
+
+---
+
+## 🔗 Liens
+
+* 💬 Discord : [https://discord.gg/mP5JBWRFaY](https://discord.gg/mP5JBWRFaY)
+* 🐙 GitHub : [https://github.com/aHIPPOz/waylestia](https://github.com/aHIPPOz/waylestia)
+
+---
+
+*Waylestia — construire le futur du desktop Linux, proprement.* 🐧
