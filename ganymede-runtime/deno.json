@@ -1,8 +1,0 @@
-{
-  "name": "ganymede-runtime",
-  "version": "0.1.0",
-  "description": "Logique runtime Deno/TS pour shell Ganymede",
-  "tasks": {
-    "start": "deno run --allow-net --allow-read src/mod.ts"
-  }
-}

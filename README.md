@@ -1,6 +1,6 @@
 # Waylestia — Suite OS Moderne
 
-**Wayland shell complet, modulaire, extensible, concurrent de KDE/Plasma, centré Hyprland, widgets Servo/Flutter, barres GTK/JS, support Wallpaper Engine.**
+**Wayland shell complet, modulaire, extensible, concurrent de KDE/Plasma, utilise Hyprland comme composant wayland, widgets Servo/Flutter, barres GTK/JS, support Wallpaper Engine.**
 
 ## Architecture
 
