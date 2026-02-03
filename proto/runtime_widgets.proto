@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+// Deno (runtime) <-> Flutter (widgets)
+
+service WidgetState {
+  rpc PushState (WidgetStateMsg) returns (Ack);
+}
+
+message WidgetStateMsg {
+  string widget = 1;
+  string json_payload = 2;
+}
+
+message Ack {
+  bool ok = 1;
+}

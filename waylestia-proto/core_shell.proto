@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+// Rust (core) <-> JS (shell)
+
+message PerfUpdate {
+  float cpu = 1;
+  float gpu = 2;
+  float ram = 3;
+  uint64 uptime = 4;
+}
+
+message SetMediaSource {
+  string source = 1;
+}

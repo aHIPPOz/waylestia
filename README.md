@@ -1,65 +1,154 @@
-# 🚀 Waylestia
+# 🚀 Waylestia — Suite OS Moderne
 
-**Un environnement de bureau Linux... qui va tout casser (dans le bon sens)**
+**Un environnement de bureau Linux modulaire et extensible, concurrent de KDE/Plasma, basé sur Wayland & Hyprland.**
 
----
-
-## 👋 C'est quoi ce projet ?
-
-Salut ! Moi c'est **A2ER7Y**, je gère le projet. Je vais pas vous mentir, je commence en hardcore : j'apprends Rust direct (oui, un langage bas niveau, on aime la douleur ici 💀).
-
-Notre mission ? **La révolution.** Non je déconne. Mais j'espère vraiment qu'on va révolutionner le Linux game.
+> Waylestia veut réunir **personnalisation**, **performance**, **simplicité** et **solidité** dans un seul écosystème moderne.
 
 ---
 
-## 🎯 Les vrais objectifs
+## 👋 C’est quoi Waylestia ?
 
-| On veut... | Comme... |
-|------------|----------|
-| 🎨 La personnalisation | Arch Linux |
-| 🤝 La facilité | Linux Mint |
-| ⚡ L'optimisation | Gentoo / CachyOS |
-| 🛡️ La solidité | Debian / Qubes OS |
+Salut !  
+Le projet est porté par la **Waylestia Team**, un collectif de passionnés qui veulent pousser plus loin l’expérience desktop Linux.
 
-En gros : **le meilleur de chaque monde.**
+L’objectif n’est pas de “réinventer Linux”, mais de **construire une suite cohérente**, moderne et hackable, pensée pour Wayland dès le départ.
+
+---
+
+## 🎯 Les objectifs
+
+| Objectif | Inspiration |
+|--------|-------------|
+| 🎨 Personnalisation extrême | Arch Linux |
+| 🤝 Simplicité d’usage | Linux Mint |
+| ⚡ Performances & optimisation | Gentoo / CachyOS |
+| 🛡️ Stabilité & sécurité | Debian / Qubes OS |
+
+👉 **Le meilleur de chaque monde, sans compromis.**
+
+---
+
+## 🧱 Architecture générale
+
+```
+
+Hyprland (WM)
+<-> waylestia-core (Rust)
+<-> waylestia-shell (JS / Deno / GTK)
+<-> waylestia-engine (Servo, widgets web)
+|-> waylestia-widgets (Flutter web)
+|-> waylestia-assets
+|-> waylestia-scripts
+|-> waylestia-proto
+
+````
+
+### Composants
+
+- **waylestia-core**  
+  Daemon principal en Rust : état global, IPC Hyprland, performances, médias, sécurité, API locale
+
+- **waylestia-shell**  
+  UI système : barres, surfaces, logique desktop  
+  (JS/Deno + GTK via FFI)
+
+- **waylestia-engine**  
+  Servo embarqué pour widgets web, Flutter web, HTML/CSS  
+  + API native + support Wallpaper Engine
+
+- **waylestia-widgets**  
+  Widgets Flutter compilés en web
+
+- **waylestia-assets**  
+  Thèmes, wallpapers, icônes
+
+- **waylestia-scripts**  
+  Build, install, maintenance
+
+- **waylestia-proto**  
+  Schémas IPC (proto / JSON)
 
 ---
 
 ## 🛠️ Stack technique
 
-- **Rust** — Tout le backend système (le cœur du projet)
-- **Moteur webview custom** — HTML (Servo) + JS (GJS), supporte aussi Dart/Flutter compilé vers HTML/JS
-- **Wayland** — Parce que X11 c'est le passé
+- **Rust** — cœur du système
+- **Hyprland** — composant Wayland (WM)
+- **Wayland** — pas de X11
+- **Servo** — moteur web embarqué
+- **JavaScript / Deno / GJS**
+- **GTK**
+- **Flutter Web**
 
 ---
 
-## 👥 L'équipe de choc
+## ⚡ Build rapide
 
-| Pseudo | Rôle | C'est qui ? |
-|--------|------|-------------|
-| **A2ER7Y** | Gestion de projet | Moi, j'apprends Rust en ce moment |
-| **aHIPPOz** | Dev principal | 4 ans de dev, 1 an en Rust, le premier arrivé |
-| **pyrrox** | Dev | Vétéran du code, expert C++ et Python |
+```bash
+# Core
+cd waylestia-core && cargo build
+
+# Shell
+cd waylestia-shell && deno task start
+
+# Widgets Flutter
+cd waylestia-widgets && flutter build web
+````
+
+> Servo nécessite un build custom (voir `waylestia-engine/servo`)
 
 ---
 
-## 🤝 On recrute !
+## 🧩 Fonctionnalités prévues
 
-Tu veux rejoindre l'aventure ?
+* Gestion avancée Hyprland (tiling, workspaces, input, IPC)
+* Barres et UI système GTK/JS
+* Widgets web animés (Servo / Flutter)
+* Intégration Wallpaper Engine
+* IPC robuste entre tous les modules
+* Architecture modulaire, propre et scalable
 
-- 💰 C'est gratuit (projet passion, on fait ça pour le love)
-- 🇫🇷 **Français uniquement** — On a des vocaux chaque semaine pour parler de l'avancement
-- 🔧 On cherche : **Dev Rust** et **Dev Dart/Flutter**
+---
 
-**Intéressé ?** Rejoins le Discord et présente-toi !
+## 🗺️ Roadmap
+
+1. Core Rust (IPC, état global, sécurité)
+2. Shell & barres UI
+3. Widgets Servo / Flutter web
+4. Wallpaper Engine
+5. Polish UX, modules avancés, CI/CD
+
+---
+
+## 👥 Équipe
+
+| Pseudo      | Rôle                  |
+| ----------- | --------------------- |
+| **A2ER7Y**  | Gestion de projet     |
+| **aHIPPOz** | Développeur principal |
+| **pyrrox**  | Développeur           |
+
+---
+
+## 🤝 Recrutement
+
+Projet **100% passion** (non rémunéré).
+
+* 🇫🇷 Français uniquement (vocaux réguliers)
+* 🔧 Profils recherchés :
+
+  * Dev **Rust**
+  * Dev **Dart / Flutter**
+
+👉 Intéressé ? Viens sur le Discord et présente-toi !
 
 ---
 
 ## 🔗 Liens
 
-- 💬 **Discord** : [https://discord.gg/mP5JBWRFaY](https://discord.gg/mP5JBWRFaY)
-- 🐙 **GitHub** : [https://github.com/aHIPPOz/waylestia](https://github.com/aHIPPOz/waylestia)
+* 💬 Discord : [https://discord.gg/mP5JBWRFaY](https://discord.gg/mP5JBWRFaY)
+* 🐙 GitHub : [https://github.com/aHIPPOz/waylestia](https://github.com/aHIPPOz/waylestia)
 
 ---
 
-*Waylestia — On va révolutionner le Linux game (pour de vrai cette fois)* 🐧
+*Waylestia — construire le futur du desktop Linux, proprement.* 🐧

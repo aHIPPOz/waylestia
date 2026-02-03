@@ -1,0 +1,8 @@
+{
+  "name": "waylestia-shell",
+  "version": "0.1.0",
+  "description": "Shell principal, barres, surfaces, via JS (Deno) + GTK (ffi)",
+  "tasks": {
+    "start": "deno run --allow-ffi --allow-net --unstable src/main.ts"
+  }
+}
