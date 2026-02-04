@@ -1,3 +1,3 @@
-# Assets
+# Assets Waylestia
 
-Logos, icônes, wallpapers, thèmes pour Waylestia.
+Wallpapers, icônes, thèmes, widgets, etc : ressources graphiques pour la suite OS.
