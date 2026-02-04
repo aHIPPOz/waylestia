@@ -19,10 +19,10 @@ L’objectif n’est pas de “réinventer Linux”, mais de **construire une su
 
 | Objectif | Inspiration |
 |--------|-------------|
-| 🎨 Personnalisation extrême | Arch Linux |
-| 🤝 Simplicité d’usage | Linux Mint |
-| ⚡ Performances & optimisation | Gentoo / CachyOS |
-| 🛡️ Stabilité & sécurité | Debian / Qubes OS |
+| 🎨 Personnalisation extrême | kde |
+| 🤝 Simplicité d’usage | gnome |
+| ⚡ Performances & optimisation | arch linux |
+| 🛡️ Stabilité & sécurité | nix |
 
 👉 **Le meilleur de chaque monde, sans compromis.**
 
@@ -34,9 +34,9 @@ L’objectif n’est pas de “réinventer Linux”, mais de **construire une su
 
 Hyprland (WM)
 <-> waylestia-core (Rust)
-<-> waylestia-shell (JS / Deno / GTK)
-<-> waylestia-engine (Servo, widgets web)
-|-> waylestia-widgets (Flutter web)
+<-> waylestia-shell (JS via Deno avec gtk)
+<-> waylestia-webview (webview based on servo and GJS)
+|-> waylestia-widgets (the widgets motot than use webview)
 |-> waylestia-assets
 |-> waylestia-scripts
 |-> waylestia-proto
@@ -47,26 +47,28 @@ Hyprland (WM)
 
 - **waylestia-core**  
   Daemon principal en Rust : état global, IPC Hyprland, performances, médias, sécurité, API locale
+  Base du code : base du gestionnaire de fenêtres ( events, logique, etc )
+  API : compatibilitée principale gtk
 
 - **waylestia-shell**  
   UI système : barres, surfaces, logique desktop  
   (JS/Deno + GTK via FFI)
 
-- **waylestia-engine**  
-  Servo embarqué pour widgets web, Flutter web, HTML/CSS  
-  + API native + support Wallpaper Engine
+- **waylestia-webview**  
+  Servo pour le html et css mais patché pour remplacer js par GJS
 
 - **waylestia-widgets**  
-  Widgets Flutter compilés en web
+  Moteur de widget utilisant waylestia-webview avec gestion de l'attachement au fond d'écran + support Wallpaper Engine
 
 - **waylestia-assets**  
-  Thèmes, wallpapers, icônes
+  Thèmes, wallpapers, icônes, contenu des widgets, etc
 
 - **waylestia-scripts**  
-  Build, install, maintenance
+  Build, install, maintenance, etc
 
 - **waylestia-proto**  
   Schémas IPC (proto / JSON)
+  Examples de protocoles et d'intégration api(s)
 
 ---
 
@@ -76,26 +78,18 @@ Hyprland (WM)
 - **Hyprland** — composant Wayland (WM)
 - **Wayland** — pas de X11
 - **Servo** — moteur web embarqué
-- **JavaScript / Deno / GJS**
-- **GTK**
-- **Flutter Web**
+- **GJS** — moteur javascript natif embarqué pour les widgets et webview
+- **Deno** — moteur javascript embarqué pour le shell ui (gestionnaire de fenêtre frontend)
+- **GTK** — api utilisée pour rester compatible avec les applis linux existentes
+- **Flutter Web** — peut être utilisé pour faire des widgets
 
 ---
 
 ## ⚡ Build rapide
 
-```bash
-# Core
-cd waylestia-core && cargo build
-
-# Shell
-cd waylestia-shell && deno task start
-
-# Widgets Flutter
-cd waylestia-widgets && flutter build web
+```asci
+COMING SOON
 ````
-
-> Servo nécessite un build custom (voir `waylestia-engine/servo`)
 
 ---
 
@@ -107,6 +101,7 @@ cd waylestia-widgets && flutter build web
 * Intégration Wallpaper Engine
 * IPC robuste entre tous les modules
 * Architecture modulaire, propre et scalable
+* Fond d'écran celestia
 
 ---
 
@@ -115,18 +110,18 @@ cd waylestia-widgets && flutter build web
 1. Core Rust (IPC, état global, sécurité)
 2. Shell & barres UI
 3. Widgets Servo / Flutter web
-4. Wallpaper Engine
+4. Wallpaper Engine & Celestia
 5. Polish UX, modules avancés, CI/CD
 
 ---
 
 ## 👥 Équipe
 
-| Pseudo      | Rôle                  |
-| ----------- | --------------------- |
-| **A2ER7Y**  | Gestion de projet     |
-| **aHIPPOz** | Développeur principal |
-| **pyrrox**  | Développeur           |
+| Pseudo      | Rôle                                             |
+| ----------- | -------------------------------------------------|
+| **A2ER7Y**  | Commanditaire du projet                          |
+| **aHIPPOz** | Développeur principal, et propriétaire du projet |
+| **pyrrox**  | Développeur inactif pour l'instent mais ...      |
 
 ---
 
@@ -138,7 +133,7 @@ Projet **100% passion** (non rémunéré).
 * 🔧 Profils recherchés :
 
   * Dev **Rust**
-  * Dev **Dart / Flutter**
+  * Dev **Javascript (deno with gtk ffi)**
 
 👉 Intéressé ? Viens sur le Discord et présente-toi !
 
@@ -151,4 +146,4 @@ Projet **100% passion** (non rémunéré).
 
 ---
 
-*Waylestia — construire le futur du desktop Linux, proprement.* 🐧
+*Waylestia — construire le futur du desktop Linux, ensemble.* 🐧
