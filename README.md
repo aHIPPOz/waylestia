@@ -30,18 +30,19 @@ L’objectif n’est pas de “réinventer Linux”, mais de **construire une su
 
 ## 🧱 Architecture générale
 
-```
 
 Hyprland (WM)
-<-> waylestia-core (Rust)
-<-> waylestia-shell (JS via Deno avec gtk)
-<-> waylestia-webview (webview based on servo and GJS)
-|-> waylestia-widgets (the widgets motot than use webview)
-|-> waylestia-assets
-|-> waylestia-scripts
-|-> waylestia-proto
+   ↕
+waylestia-core (Rust)
+   ↕
+waylestia-shell (JavaScript via Deno + GTK)
+   ↕
+waylestia-webview (Servo-based WebView + GJS)
+      ├─ waylestia-widgets   (Widgets moteur basés sur la webview)
+      ├─ waylestia-assets    (Thèmes, icônes, wallpapers)
+      ├─ waylestia-scripts   (Scripts build, install, maintenance)
+      └─ waylestia-proto     (Schémas IPC / protocoles)
 
-````
 
 ### Composants
 
