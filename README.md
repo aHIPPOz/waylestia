@@ -35,7 +35,7 @@ Hyprland (WM)
    ↕
 waylestia-core (Rust)
    ↕
-waylestia-shell (JavaScript via Deno + GTK)
+waylestia-shell (JavaScript via Deno + GTK via FFI)
    ↕
 waylestia-webview (Servo-based WebView + GJS)
       ├─ waylestia-widgets   (Widgets moteur basés sur la webview)
@@ -46,30 +46,32 @@ waylestia-webview (Servo-based WebView + GJS)
 
 ### Composants
 
-- **waylestia-core**  
+- **core**  
   Daemon principal en Rust : état global, IPC Hyprland, performances, médias, sécurité, API locale
   Base du code : base du gestionnaire de fenêtres ( events, logique, etc )
   API : compatibilitée principale gtk
+  en gros c'est comme une couche de compatibilitée hyprland ←→ GTK mais avec des trucs en plus.
 
-- **waylestia-shell**  
+- **shell**  
   UI système : barres, surfaces, logique desktop  
   (JS/Deno + GTK via FFI)
 
 - **waylestia-webview**  
   Servo pour le html et css mais patché pour remplacer js par GJS
 
-- **waylestia-widgets**  
-  Moteur de widget utilisant waylestia-webview avec gestion de l'attachement au fond d'écran + support Wallpaper Engine
+- **widgets**  
+  Moteur de widget utilisant webview avec gestion de l'attachement au fond d'écran + support Wallpaper Engine
 
-- **waylestia-assets**  
+- **assets**  
   Thèmes, wallpapers, icônes, contenu des widgets, etc
 
-- **waylestia-scripts**  
+- **scripts**  
   Build, install, maintenance, etc
 
-- **waylestia-proto**  
+- **proto**  
   Schémas IPC (proto / JSON)
   Examples de protocoles et d'intégration api(s)
+  protocoles et liaison profonde rust ←^→ JS
 
 ---
 
