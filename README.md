@@ -17,12 +17,12 @@ L’objectif n’est pas de “réinventer Linux”, mais de **construire une su
 
 ## 🎯 Les objectifs
 
-| Objectif | Inspiration |
-|--------|-------------|
-| 🎨 Personnalisation extrême | kde |
-| 🤝 Simplicité d’usage | gnome |
-| ⚡ Performances & optimisation | arch linux |
-| 🛡️ Stabilité & sécurité | nix |
+| Objectif                       | Inspiration |
+|--------------------------------|-------------|
+| 🎨 Personnalisation extrême    | kde         |
+| 🤝 Simplicité d’usage          | gnome       |
+| ⚡ Performances & optimisation | arch linux  |
+| 🛡️ Stabilité & sécurité        | nix         |
 
 👉 **Le meilleur de chaque monde, sans compromis.**
 
@@ -122,7 +122,7 @@ COMING SOON
 | ----------- | -------------------------------------------------|
 | **A2ER7Y**  | Commanditaire du projet                          |
 | **aHIPPOz** | Développeur principal, et propriétaire du projet |
-| **pyrrox**  | Développeur inactif pour l'instent mais ...      |
+| **pyrrox**  | Développeur                                      |
 
 ---
 
