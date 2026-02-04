@@ -86,7 +86,7 @@ waylestia-webview (Servo-based WebView + GJS)
 
 ---
 
-## ⚡ Build rapide
+## ⚡ Install and Build
 
 ```asci
 COMING SOON
