@@ -1,0 +1,25 @@
+[widget]
+id = "dashboard"
+name = "Waylestia Dashboard"
+version = "0.1.0"
+description = "System information and quick access dashboard"
+author = "Waylestia Team"
+license = "GPL-3.0"
+main = "index.html"
+icon = "icon.svg"
+category = "system"
+
+[display]
+width = 600
+height = 400
+resizable = true
+fullscreen = false
+always_on_top = false
+transparent = false
+
+[permissions]
+ipc = true
+filesystem = false
+network = false
+media = false
+notifications = true

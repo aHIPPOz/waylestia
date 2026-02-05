@@ -1,14 +1,154 @@
 syntax = "proto3";
+package waylestia.proto;
 
-// Rust (core) <-> Deno (runtime)
+// Rust Core <-> Deno Runtime Communication Protocol
+// Replaces D-Bus from GNOME, compatible with GTK/Glib
 
-message PerfUpdate {
-  float cpu = 1;
-  float gpu = 2;
-  float ram = 3;
-  uint64 uptime = 4;
+// ========== PERFORMANCE MESSAGES ==========
+message PerfStats {
+  float cpu_usage = 1;      // 0-100 percentage
+  float gpu_usage = 2;      // 0-100 percentage
+  float ram_usage = 3;      // 0-100 percentage
+  uint32 ram_used_mb = 4;   // Megabytes
+  uint32 ram_total_mb = 5;  // Megabytes
+  uint64 uptime_seconds = 6;
+  int64 timestamp = 7;      // Unix timestamp
 }
 
+// ========== MEDIA MESSAGES ==========
 message SetMediaSource {
-  string source = 1;
+  string device_id = 1;
+  string source_type = 2;   // "speakers", "headphones", "hdmi", etc
+  float volume = 3;         // 0.0-1.0
+  bool muted = 4;
+}
+
+message MediaStateUpdate {
+  string device_id = 1;
+  float volume = 2;
+  bool muted = 3;
+  string active_source = 4;
+  int64 timestamp = 5;
+}
+
+// ========== HYPRLAND WINDOW MESSAGES ==========
+message WindowEvent {
+  enum EventType {
+    WINDOW_OPEN = 0;
+    WINDOW_CLOSE = 1;
+    WINDOW_FOCUS = 2;
+    WINDOW_MOVE = 3;
+    WINDOW_RESIZE = 4;
+    WORKSPACE_CHANGE = 5;
+  }
+  
+  EventType type = 1;
+  string window_address = 2;      // Hyprland window address
+  string workspace_name = 3;
+  string app_class = 4;
+  string app_title = 5;
+  uint32 x = 6;
+  uint32 y = 7;
+  uint32 width = 8;
+  uint32 height = 9;
+  int64 timestamp = 10;
+}
+
+message WorkspaceInfo {
+  string name = 1;
+  uint32 id = 2;
+  repeated WindowInfo windows = 3;
+  bool active = 4;
+}
+
+message WindowInfo {
+  string address = 1;
+  string class = 2;
+  string title = 3;
+  uint32 x = 4;
+  uint32 y = 5;
+  uint32 width = 6;
+  uint32 height = 7;
+  bool focused = 8;
+}
+
+// ========== SECURITY MESSAGES ==========
+message PermissionRequest {
+  string app_id = 1;
+  enum Permission {
+    FILESYSTEM = 0;
+    NETWORK = 1;
+    CAMERA = 2;
+    MICROPHONE = 3;
+    NOTIFICATIONS = 4;
+  }
+  Permission permission = 2;
+  string resource = 3;      // Optional: file path, network URL, etc
+}
+
+message PermissionResponse {
+  string request_id = 1;
+  bool granted = 2;
+  string reason = 3;
+}
+
+// ========== NOTIFICATION MESSAGES ==========
+message Notification {
+  string id = 1;
+  string app_id = 2;
+  string title = 3;
+  string body = 4;
+  string icon_path = 5;
+  uint32 timeout_ms = 6;    // 0 = persistent
+  bool urgency = 7;         // true = high priority
+  repeated Action actions = 8;
+  
+  message Action {
+    string id = 1;
+    string label = 2;
+  }
+}
+
+// ========== SETTINGS/CONFIG MESSAGES ==========
+message ConfigUpdate {
+  string schema = 1;        // e.g., "org.waylestia.desktop"
+  string key = 2;
+  string value = 3;         // JSON encoded
+}
+
+message ConfigRequest {
+  string schema = 1;
+  repeated string keys = 2;
+}
+
+message ConfigResponse {
+  map<string, string> values = 1; // JSON values
+}
+
+// ========== SHELL STATE MESSAGES ==========
+message ShellState {
+  bool show_overview = 1;
+  bool lock_screen_visible = 2;
+  string focused_app = 3;
+  string focused_workspace = 4;
+}
+
+message ShowOverview {
+  bool show = 1;
+}
+
+message FocusApp {
+  string app_id = 1;
+}
+
+// ========== COMPATIBILITY MESSAGES ==========
+message DBusCompat {
+  string interface = 1;      // e.g., "org.freedesktop.DBus.Properties"
+  string method = 2;         // e.g., "Get"
+  repeated string args = 3;  // Arguments
+}
+
+message DBusCompatResponse {
+  bool success = 1;
+  string result = 2;         // JSON encoded result
 }

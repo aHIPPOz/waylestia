@@ -1,0 +1,210 @@
+syntax = "proto3";
+package waylestia.proto;
+
+// Applications (GJS) <-> Core Communication Protocol
+// Replaces D-Bus for app integration with Waylestia core
+
+service AppService {
+  rpc RegisterApp (AppRegistration) returns (AppRegistrationResponse);
+  rpc UnregisterApp (UnregisterRequest) returns (Response);
+  rpc GetAppInfo (GetAppInfoRequest) returns (AppInfo);
+  rpc LaunchApp (LaunchAppRequest) returns (LaunchAppResponse);
+  rpc RequestIPC (IPCRequest) returns (IPCResponse);
+  rpc SubscribeAppEvents (AppSubscribeRequest) returns (stream AppEvent);
+}
+
+// ========== BASIC TYPES ==========
+message Response {
+  bool success = 1;
+  string message = 2;
+  string error = 3;
+}
+
+// ========== APP LIFECYCLE ==========
+message AppRegistration {
+  string app_id = 1;
+  string name = 2;
+  string version = 3;
+  string description = 4;
+  string icon_path = 5;
+  string executable = 6;
+  repeated string categories = 7;
+  AppPermissions permissions = 8;
+  map<string, string> metadata = 9;
+}
+
+message AppRegistrationResponse {
+  bool success = 1;
+  string app_id = 2;
+  string error = 3;
+}
+
+message UnregisterRequest {
+  string app_id = 1;
+}
+
+message AppInfo {
+  string app_id = 1;
+  string name = 2;
+  string version = 3;
+  string description = 4;
+  string icon_path = 5;
+  bool running = 6;
+  uint32 pid = 7;
+  AppPermissions permissions = 8;
+  map<string, string> metadata = 9;
+}
+
+message GetAppInfoRequest {
+  string app_id = 1;
+}
+
+// ========== APP LAUNCHING ==========
+message LaunchAppRequest {
+  string app_id = 1;
+  repeated string args = 2;
+  map<string, string> env = 3;
+  bool activate = 4;  // Bring window to focus
+}
+
+message LaunchAppResponse {
+  bool success = 1;
+  uint32 pid = 2;
+  string error = 3;
+}
+
+// ========== IPC REQUESTS ==========
+message IPCRequest {
+  string app_id = 1;
+  string request_id = 2;
+  string service = 3;  // e.g., "org.waylestia.Settings"
+  string method = 4;   // e.g., "Get"
+  repeated string args = 5;
+  int64 timeout_ms = 6;
+}
+
+message IPCResponse {
+  string request_id = 1;
+  bool success = 2;
+  string result = 3;  // JSON encoded
+  string error = 4;
+}
+
+// ========== PERMISSIONS ==========
+message AppPermissions {
+  bool filesystem = 1;
+  bool network = 2;
+  bool camera = 3;
+  bool microphone = 4;
+  bool notifications = 5;
+  bool printer = 6;
+  bool usb = 7;
+  bool gpu = 8;
+}
+
+// ========== APP EVENTS ==========
+message AppEvent {
+  string app_id = 1;
+  
+  oneof event {
+    AppStartedEvent started = 2;
+    AppStoppedEvent stopped = 3;
+    AppFocusedEvent focused = 4;
+    AppPermissionRequestEvent permission = 5;
+    AppMessageEvent message = 6;
+  }
+  
+  int64 timestamp = 100;
+}
+
+message AppStartedEvent {
+  uint32 pid = 1;
+}
+
+message AppStoppedEvent {
+  uint32 pid = 1;
+  int32 exit_code = 2;
+}
+
+message AppFocusedEvent {
+  bool focused = 1;
+}
+
+message AppPermissionRequestEvent {
+  enum Permission {
+    FILESYSTEM = 0;
+    NETWORK = 1;
+    CAMERA = 2;
+    MICROPHONE = 3;
+    NOTIFICATIONS = 4;
+    PRINTER = 5;
+    USB = 6;
+    GPU = 7;
+  }
+  Permission permission = 1;
+  string resource = 2;
+}
+
+message AppMessageEvent {
+  string sender_app_id = 1;
+  string message_type = 2;
+  string data = 3;  // JSON encoded
+}
+
+// ========== SUBSCRIPTIONS ==========
+message AppSubscribeRequest {
+  string app_id = 1;
+  repeated string event_types = 2;
+}
+
+// ========== D-BUS COMPATIBILITY LAYER ==========
+message DBusMethod {
+  string interface = 1;     // e.g., "org.freedesktop.DBus.Properties"
+  string object_path = 2;   // e.g., "/org/waylestia/Settings"
+  string method = 3;        // e.g., "Get"
+  repeated string args = 4;
+}
+
+message DBusSignal {
+  string interface = 1;
+  string object_path = 2;
+  string signal_name = 3;
+  repeated string args = 4;
+}
+
+// ========== WAYLESTIA-SPECIFIC SERVICES ==========
+message SettingsService {
+  message GetRequest {
+    string schema = 1;      // e.g., "org.waylestia.desktop"
+    string key = 2;
+  }
+  
+  message SetRequest {
+    string schema = 1;
+    string key = 2;
+    string value = 3;       // JSON encoded
+  }
+  
+  message GetResponse {
+    string value = 1;       // JSON encoded
+  }
+}
+
+message NotificationService {
+  message ShowRequest {
+    string app_id = 1;
+    string title = 2;
+    string body = 3;
+    string icon = 4;
+    repeated NotificationAction actions = 5;
+  }
+  
+  message NotificationAction {
+    string id = 1;
+    string label = 2;
+  }
+  
+  message ShowResponse {
+    string notification_id = 1;
+  }
+}

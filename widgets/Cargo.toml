@@ -1,0 +1,31 @@
+[package]
+name = "waylestia-widgets"
+version = "0.1.0"
+edition = "2021"
+authors = ["Waylestia Team"]
+description = "Widget engine - Rust core using Servo webview for rendering"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+anyhow = "1.0"
+thiserror = "1.0"
+prost = "0.12"
+prost-types = "0.12"
+tonic = "0.11"
+uuid = { version = "1.0", features = ["v4", "serde"] }
+notify = "6.1"
+path-absolutize = "3.1"
+
+[[bin]]
+name = "waylestia-widgets"
+path = "src/main.rs"
+
+[lib]
+name = "waylestia_widgets"
+path = "src/lib.rs"
+
+[build-dependencies]
+prost-build = "0.12"

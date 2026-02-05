@@ -1,0 +1,25 @@
+[widget]
+id = "clock" 
+name = "Waylestia Clock Widget"
+version = "0.1.0"
+description = "Beautiful analog and digital clock with timezone support"
+author = "Waylestia Team"
+license = "GPL-3.0"
+main = "index.html"
+icon = "icon.svg"
+category = "system"
+
+[display]
+width = 300
+height = 300
+resizable = false
+fullscreen = false
+always_on_top = false
+transparent = true
+
+[permissions]
+ipc = true
+filesystem = false
+network = false
+media = false
+notifications = false

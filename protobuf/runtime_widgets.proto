@@ -1,16 +1,118 @@
 syntax = "proto3";
+package waylestia.proto;
 
-// Deno (runtime) <-> Flutter (widgets)
+// Deno Runtime <-> Widgets (Flutter Web) Communication Protocol
+// For widgets built with Flutter Web targeting Servo
 
-service WidgetState {
-  rpc PushState (WidgetStateMsg) returns (Ack);
+service WidgetRuntimeService {
+  rpc CreateWidget (CreateWidgetRequest) returns (CreateWidgetResponse);
+  rpc DestroyWidget (DestroyWidgetRequest) returns (Response);
+  rpc SendMessage (WidgetMessage) returns (Response);
+  rpc GetWidgetState (GetStateRequest) returns (GetStateResponse);
+  rpc UpdateWidgetState (UpdateStateRequest) returns (Response);
+  rpc SubscribeWidgetEvents (SubscribeRequest) returns (stream WidgetEvent);
 }
 
-message WidgetStateMsg {
-  string widget = 1;
-  string json_payload = 2;
+// ========== BASIC TYPES ==========
+message Response {
+  bool success = 1;
+  string message = 2;
+  string error = 3;
 }
 
-message Ack {
-  bool ok = 1;
+// ========== WIDGET LIFECYCLE ==========
+message CreateWidgetRequest {
+  string widget_id = 1;
+  string instance_id = 2;
+  uint32 x = 3;
+  uint32 y = 4;
+  uint32 width = 5;
+  uint32 height = 6;
+  map<string, string> initial_state = 7;
+}
+
+message CreateWidgetResponse {
+  bool success = 1;
+  string instance_id = 2;
+  string error = 3;
+}
+
+message DestroyWidgetRequest {
+  string instance_id = 1;
+}
+
+// ========== MESSAGING ==========
+message WidgetMessage {
+  string instance_id = 1;
+  string widget_id = 2;
+  string message_type = 3;
+  string data = 4;  // JSON encoded
+  int64 timestamp = 5;
+}
+
+message WidgetEvent {
+  string instance_id = 1;
+  string widget_id = 2;
+  
+  oneof event_data {
+    WidgetReadyEvent ready = 3;
+    WidgetInputEvent input = 4;
+    WidgetStateChangeEvent state_change = 5;
+    WidgetErrorEvent error = 6;
+    WidgetVisibilityEvent visibility = 7;
+  }
+  
+  int64 timestamp = 100;
+}
+
+message WidgetReadyEvent {
+  bool ready = 1;
+}
+
+message WidgetInputEvent {
+  enum InputType {
+    MOUSE_CLICK = 0;
+    MOUSE_MOVE = 1;
+    KEY_PRESS = 2;
+    TOUCH = 3;
+  }
+  InputType type = 1;
+  uint32 x = 2;
+  uint32 y = 3;
+  string key = 4;
+  string data = 5;  // JSON
+}
+
+message WidgetStateChangeEvent {
+  string state = 1;  // JSON encoded state
+}
+
+message WidgetErrorEvent {
+  string error_message = 1;
+  string stack_trace = 2;
+}
+
+message WidgetVisibilityEvent {
+  bool visible = 1;
+}
+
+// ========== STATE MANAGEMENT ==========
+message GetStateRequest {
+  string instance_id = 1;
+  repeated string keys = 2;  // Empty = get all state
+}
+
+message GetStateResponse {
+  map<string, string> state = 1;  // JSON values
+}
+
+message UpdateStateRequest {
+  string instance_id = 1;
+  map<string, string> state = 2;  // JSON values
+}
+
+// ========== SUBSCRIPTIONS ==========
+message SubscribeRequest {
+  string instance_id = 1;
+  repeated string event_types = 2;
 }

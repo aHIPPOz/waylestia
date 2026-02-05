@@ -1,14 +1,199 @@
 syntax = "proto3";
+package waylestia.proto;
 
-// Rust (core) <-> JS (shell)
+// Rust Core <-> JavaScript Shell Communication Protocol
+// For UI shell running on GTK/Glib with protobuf IPC
 
-message PerfUpdate {
-  float cpu = 1;
-  float gpu = 2;
-  float ram = 3;
-  uint64 uptime = 4;
+// ========== BASIC RPC SERVICE ==========
+service CoreRPC {
+  rpc GetPerfStats (Empty) returns (PerfStats);
+  rpc GetWindowList (Empty) returns (WindowList);
+  rpc GetWorkspaces (Empty) returns (WorkspaceList);
+  rpc FocusWindow (WindowFocusRequest) returns (Response);
+  rpc CloseWindow (WindowCloseRequest) returns (Response);
+  rpc SetMediaVolume (SetMediaVolumeRequest) returns (Response);
+  rpc RequestPermission (PermissionRequest) returns (PermissionResponse);
+  rpc ShowNotification (Notification) returns (NotificationResponse);
+  rpc UpdateConfig (ConfigUpdate) returns (Response);
+  rpc GetConfig (ConfigRequest) returns (ConfigResponse);
+  rpc SubscribeEvents (SubscribeRequest) returns (stream Event);
 }
 
-message SetMediaSource {
-  string source = 1;
+// ========== BASIC TYPES ==========
+message Empty {}
+
+message Response {
+  bool success = 1;
+  string message = 2;
+  string error = 3;
+}
+
+message Event {
+  oneof event_type {
+    PerfStatsEvent perf_stats = 1;
+    WindowEventData window_event = 2;
+    WorkspaceChangeEvent workspace_change = 3;
+    NotificationEvent notification = 4;
+    PermissionRequestEvent permission = 5;
+  }
+  int64 timestamp = 100;
+}
+
+// ========== PERFORMANCE ==========
+message PerfStats {
+  float cpu_usage = 1;
+  float gpu_usage = 2;
+  float ram_usage = 3;
+  uint32 ram_used_mb = 4;
+  uint32 ram_total_mb = 5;
+  uint64 uptime_seconds = 6;
+  int64 timestamp = 7;
+}
+
+message PerfStatsEvent {
+  PerfStats stats = 1;
+}
+
+// ========== WINDOWS & WORKSPACES ==========
+message Window {
+  string address = 1;
+  string class = 2;
+  string title = 3;
+  uint32 x = 4;
+  uint32 y = 5;
+  uint32 width = 6;
+  uint32 height = 7;
+  bool focused = 8;
+  string workspace = 9;
+  string icon_path = 10;
+}
+
+message WindowList {
+  repeated Window windows = 1;
+  int64 timestamp = 2;
+}
+
+message WindowEventData {
+  enum Type {
+    OPENED = 0;
+    CLOSED = 1;
+    FOCUSED = 2;
+    MOVED = 3;
+    RESIZED = 4;
+  }
+  Type type = 1;
+  Window window = 2;
+}
+
+message WindowFocusRequest {
+  string window_address = 1;
+}
+
+message WindowCloseRequest {
+  string window_address = 1;
+}
+
+message Workspace {
+  string name = 1;
+  uint32 id = 2;
+  bool active = 3;
+  repeated Window windows = 4;
+  uint32 monitor_id = 5;
+}
+
+message WorkspaceList {
+  repeated Workspace workspaces = 1;
+  string active_workspace = 2;
+  int64 timestamp = 3;
+}
+
+message WorkspaceChangeEvent {
+  string workspace_name = 1;
+  uint32 workspace_id = 2;
+}
+
+// ========== MEDIA & AUDIO ==========
+message SetMediaVolumeRequest {
+  string device_id = 1;
+  float volume = 2;  // 0.0-1.0
+}
+
+// ========== NOTIFICATIONS ==========
+message Notification {
+  string id = 1;
+  string app_id = 2;
+  string title = 3;
+  string body = 4;
+  string icon_path = 5;
+  uint32 timeout_ms = 6;
+  bool urgency = 7;
+  repeated NotificationAction actions = 8;
+}
+
+message NotificationAction {
+  string id = 1;
+  string label = 2;
+}
+
+message NotificationResponse {
+  string notification_id = 1;
+  bool success = 2;
+}
+
+message NotificationEvent {
+  string notification_id = 1;
+  enum Action {
+    SHOWN = 0;
+    CLOSED = 1;
+    ACTION_CLICKED = 2;
+  }
+  Action action = 2;
+  string action_id = 3;
+}
+
+// ========== PERMISSIONS ==========
+message PermissionRequest {
+  string request_id = 1;
+  string app_id = 2;
+  enum Permission {
+    FILESYSTEM = 0;
+    NETWORK = 1;
+    CAMERA = 2;
+    MICROPHONE = 3;
+    NOTIFICATIONS = 4;
+    PRINTER = 5;
+  }
+  Permission permission = 3;
+  string resource = 4;
+}
+
+message PermissionResponse {
+  string request_id = 1;
+  bool granted = 2;
+  string reason = 3;
+}
+
+message PermissionRequestEvent {
+  PermissionRequest request = 1;
+}
+
+// ========== CONFIGURATION ==========
+message ConfigUpdate {
+  string schema = 1;
+  string key = 2;
+  string value = 3;  // JSON encoded
+}
+
+message ConfigRequest {
+  string schema = 1;
+  repeated string keys = 2;
+}
+
+message ConfigResponse {
+  map<string, string> values = 1;
+}
+
+// ========== SHELL STATE ==========
+message SubscribeRequest {
+  repeated string event_types = 1;  // e.g., ["perf", "window", "workspace"]
 }

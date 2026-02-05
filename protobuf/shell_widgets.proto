@@ -1,16 +1,168 @@
 syntax = "proto3";
+package waylestia.proto;
 
-// JS (shell) <-> Servo (widgets)
+// JavaScript Shell <-> Widgets (Servo) Communication Protocol
+// For web-based widgets rendered through Servo webview engine
 
-service WidgetState {
-  rpc PushState (WidgetStateMsg) returns (Ack);
+service ShellWidgetService {
+  rpc RegisterWidget (RegisterWidgetRequest) returns (RegisterWidgetResponse);
+  rpc UnregisterWidget (UnregisterWidgetRequest) returns (Response);
+  rpc SendWidgetMessage (WidgetMessage) returns (Response);
+  rpc UpdateWidgetDisplay (UpdateDisplayRequest) returns (Response);
+  rpc SubscribeWidgetUpdates (SubscribeWidgetRequest) returns (stream WidgetUpdate);
 }
 
-message WidgetStateMsg {
-  string widget = 1;
-  string json_payload = 2;
+// ========== BASIC TYPES ==========
+message Response {
+  bool success = 1;
+  string message = 2;
+  string error = 3;
 }
 
-message Ack {
-  bool ok = 1;
+// ========== WIDGET REGISTRATION ==========
+message RegisterWidgetRequest {
+  string widget_id = 1;
+  string instance_id = 2;
+  string manifest_path = 3;
+  string html_url = 4;  // file:// URL to widget HTML
+  uint32 x = 5;
+  uint32 y = 6;
+  uint32 width = 7;
+  uint32 height = 8;
+  bool visible = 9;
+  bool transparent = 10;
+  bool always_on_top = 11;
+}
+
+message RegisterWidgetResponse {
+  bool success = 1;
+  string instance_id = 2;
+  string error = 3;
+  uint32 window_id = 4;  // Wayland surface ID
+}
+
+message UnregisterWidgetRequest {
+  string instance_id = 1;
+}
+
+// ========== MESSAGING ==========
+message WidgetMessage {
+  string instance_id = 1;
+  string widget_id = 2;
+  string message_type = 3;  // e.g., "state_update", "event", "rpc_call"
+  string data = 4;          // JSON encoded
+  int64 timestamp = 5;
+}
+
+// ========== DISPLAY & RENDERING ==========
+message UpdateDisplayRequest {
+  string instance_id = 1;
+  
+  oneof update {
+    PositionUpdate position = 2;
+    SizeUpdate size = 3;
+    VisibilityUpdate visibility = 4;
+    StyleUpdate style = 5;
+  }
+}
+
+message PositionUpdate {
+  int32 x = 1;
+  int32 y = 2;
+}
+
+message SizeUpdate {
+  uint32 width = 1;
+  uint32 height = 2;
+}
+
+message VisibilityUpdate {
+  bool visible = 1;
+}
+
+message StyleUpdate {
+  bool transparent = 1;
+  bool always_on_top = 2;
+  uint32 opacity = 3;  // 0-100
+  string layer = 4;    // "background", "widget", "overlay", "notification"
+}
+
+// ========== WIDGET UPDATES ==========
+message WidgetUpdate {
+  string instance_id = 1;
+  
+  oneof update {
+    WidgetReadyUpdate ready = 2;
+    WidgetInputUpdate input = 3;
+    WidgetMessageUpdate message = 4;
+    WidgetErrorUpdate error = 5;
+    WidgetResourceUpdate resource = 6;
+  }
+  
+  int64 timestamp = 100;
+}
+
+message WidgetReadyUpdate {
+  bool ready = 1;
+  string version = 2;
+}
+
+message WidgetInputUpdate {
+  enum InputType {
+    MOUSE = 0;
+    KEYBOARD = 1;
+    TOUCH = 2;
+    SCROLL = 3;
+  }
+  InputType type = 1;
+  uint32 x = 2;
+  uint32 y = 3;
+  string key = 4;
+  int32 scroll_delta_y = 5;
+  string data = 6;  // JSON
+}
+
+message WidgetMessageUpdate {
+  string message_type = 1;
+  string data = 2;  // JSON
+  bool requires_response = 3;
+}
+
+message WidgetErrorUpdate {
+  string error = 1;
+  string stack_trace = 2;
+  bool fatal = 3;
+}
+
+message WidgetResourceUpdate {
+  enum ResourceType {
+    ASSET = 0;
+    STYLESHEET = 1;
+    SCRIPT = 2;
+  }
+  ResourceType type = 1;
+  string path = 2;
+  string content = 3;  // Data URL or content
+}
+
+// ========== SUBSCRIPTIONS ==========
+message SubscribeWidgetRequest {
+  string instance_id = 1;
+  repeated string event_types = 2;
+}
+
+// ========== IPC BRIDGE (GJS) ==========
+message GJSBridge {
+  message SendMessage {
+    string instance_id = 1;
+    string widget_id = 2;
+    string type = 3;
+    string data = 4;  // JSON
+  }
+  
+  message ReceiveMessage {
+    string instance_id = 1;
+    string type = 2;
+    string data = 3;  // JSON
+  }
 }

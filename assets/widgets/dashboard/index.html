@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waylestia Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #181a2a 0%, #16213e 100%);
+            color: #e0e0e0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 600px;
+            background: rgba(35, 36, 77, 0.8);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8f7b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 500;
+            color: #ff6b6b;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        button {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 12px;
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 3px solid #667eea;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Waylestia Dashboard</h1>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-label">CPU</div>
+                <div class="stat-value" id="cpu">--&nbsp;%</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">RAM</div>
+                <div class="stat-value" id="ram">--&nbsp;%</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">GPU</div>
+                <div class="stat-value" id="gpu">--&nbsp;%</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Uptime</div>
+                <div class="stat-value" id="uptime">--h</div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button onclick="handleSettings()">⚙️ Settings</button>
+            <button onclick="handleApps()">📦 Apps</button>
+            <button onclick="handleSystem()">🔧 System</button>
+        </div>
+
+        <div class="status">
+            Widget initialized - awaiting IPC connection
+        </div>
+    </div>
+
+    <script>
+        // Widget initialization
+        console.log("[Dashboard] Widget loaded", window.waylestia);
+
+        // Update stats (placeholder - real values from core via IPC)
+        function updateStats() {
+            document.getElementById('cpu').textContent = Math.random().toFixed(0) + ' %';
+            document.getElementById('ram').textContent = Math.random().toFixed(0) + ' %';
+            document.getElementById('gpu').textContent = Math.random().toFixed(0) + ' %';
+            document.getElementById('uptime').textContent = (24 + Math.floor(Math.random() * 48)) + 'h';
+        }
+
+        // Button handlers
+        function handleSettings() {
+            console.log("[Dashboard] Opening Settings");
+            if (window.waylestia) {
+                window.waylestia.sendMessage('open_app', { app: 'settings' });
+            }
+        }
+
+        function handleApps() {
+            console.log("[Dashboard] Opening Apps");
+            if (window.waylestia) {
+                window.waylestia.sendMessage('open_app', { app: 'applications' });
+            }
+        }
+
+        function handleSystem() {
+            console.log("[Dashboard] Opening System");
+            if (window.waylestia) {
+                window.waylestia.sendMessage('open_system', {});
+            }
+        }
+
+        // Listen for messages from shell/core
+        if (window.waylestia) {
+            window.waylestia.onMessage((msg) => {
+                console.log("[Dashboard] Message received:", msg);
+                if (msg.type === 'perf_update') {
+                    document.getElementById('cpu').textContent = msg.data.cpu.toFixed(0) + ' %';
+                    document.getElementById('ram').textContent = msg.data.ram.toFixed(0) + ' %';
+                    document.getElementById('gpu').textContent = msg.data.gpu.toFixed(0) + ' %';
+                    document.getElementById('uptime').textContent = (msg.data.uptime / 3600).toFixed(0) + 'h';
+                }
+            });
+        }
+
+        // Initial update
+        updateStats();
+        setInterval(updateStats, 2000);
+    </script>
+</body>
+</html>
