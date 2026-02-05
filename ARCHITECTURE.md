@@ -1,297 +1,249 @@
-# Waylestia Architecture Documentation
-
-Complete modern Linux desktop suite built on Wayland/Hyprland with Rust core, GTK UI, and Protocol Buffer IPC.
-
-## High-Level Architecture
-
-```
+Documentation de l'Architecture de Waylestia
+Suite bureautique Linux moderne construite sur Wayland/Hyprland et wayfire prochainement avec un cœur en Rust, une interface GTK, et une communication IPC via Protocol Buffers.
+Architecture Générale
 ┌─────────────────────────────────────────────────────────────────┐
-│                     Waylestia Desktop Suite                     │
+│                     Suite Bureautique Waylestia                 │
 └─────────────────────────────────────────────────────────────────┘
 
-Applications (GJS + Gtk)
-├── Browser (Servo-based)
-├── Calendar (GTK)
-├── Editor (Servo + CodeMirror)
-├── Files (GTK)
+Applications (GJS + GTK)
+├── Navigateur (basé sur Servo)
+├── Calendrier (GTK)
+├── Éditeur (Servo + CodeMirror)
+├── Fichiers (GTK)
 ├── Mail (GTK + IMAP/SMTP)
-├── Media (GTK + PipeWire)
-├── Settings (Servo UI)
+├── Média (GTK + PipeWire)
+├── Paramètres (interface Servo)
 └── Terminal (GTK + Pty)
 
-        ↓ Protobuf IPC (Unix sockets)
+        ↓ IPC Protobuf (sockets Unix)
 
 ┌─────────────────────────────────────────────────────────────────┐
-│              Waylestia Shell (JavaScript/Deno)                  │
-│  - Taskbar, panel, desktop management                          │
-│  - Window operations via protobuf                              │
-│  - Widget management                                            │
+│              Shell Waylestia (JavaScript/Deno)                  │
+│  - Barre des tâches, panneau, gestion du bureau                 │
+│  - Opérations de fenêtres via protobuf                          │
+│  - Gestion des widgets                                          │
 └─────────────────────────────────────────────────────────────────┘
 
-        ↓ Protobuf IPC
+        ↓ IPC Protobuf
 
 ┌─────────────────────────────────────────────────────────────────┐
-│                   Waylestia Core (Rust)                         │
-│  ├─ Hyprland IPC & window management                           │
-│  ├─ Performance monitoring (CPU/GPU/RAM)                       │
-│  ├─ Media control (PipeWire)                                   │
-│  ├─ Security & permissions                                     │
-│  ├─ Settings management (replaces GSettings)                   │
-│  └─ System notifications                                        │
+│                   Cœur Waylestia (Rust)                         │
+│  ├─ IPC Hyprland & gestion des fenêtres                         │
+│  ├─ Surveillance des performances (CPU/GPU/RAM)                 │
+│  ├─ Contrôle média (PipeWire)                                   │
+│  ├─ Sécurité & permissions                                      │
+│  ├─ Gestion des paramètres (remplace GSettings)                 │
+│  └─ Notifications système                                       │
 └─────────────────────────────────────────────────────────────────┘
 
-        ↓ Hyprland IPC
+        ↓ IPC Hyprland
 
 ┌─────────────────────────────────────────────────────────────────┐
-│              Hyprland Wayland Compositor                        │
+│              Compositeur Wayland Hyprland                       │
 └─────────────────────────────────────────────────────────────────┘
-```
+Détails des Composants
+1. Daemon Principal (/core)
+Langage : Rust (asynchrone avec Tokio)
+Responsabilités :
 
-## Component Details
+Gérer la communication avec Hyprland (liste des fenêtres, changements d'espace de travail)
+Surveiller les performances système (CPU, GPU, RAM, temps de fonctionnement)
+Contrôler les périphériques audio via PipeWire
+Gérer les permissions et politiques de sécurité
+Fournir une interface IPC unifiée via protobuf
 
-### 1. Core Daemon (`/core`)
-
-**Language:** Rust (async with Tokio)  
-**Responsibilities:**
-- Manage Hyprland communication (window list, workspace changes)
-- Monitor system performance (CPU, GPU, RAM, uptime)
-- Control audio devices via PipeWire
-- Manage permissions and security policies
-- Provide unified IPC interface via protobuf
-
-**Key Modules:**
-```
+Modules Principaux :
 core/src/
-├── lib.rs          # Library exports
-├── main.rs         # Daemon entry point
-├── hyprland.rs     # Hyprland WM integration
-├── ipc.rs          # Unix socket IPC server
-├── state.rs        # Global state management
-├── perf.rs         # Performance monitoring
-├── media.rs        # Audio device management
-└── security.rs     # Permission & audit logging
-```
+├── lib.rs          # Exports de la bibliothèque
+├── main.rs         # Point d'entrée du daemon
+├── hyprland.rs     # Intégration avec Hyprland
+├── ipc.rs          # Serveur IPC (socket Unix)
+├── state.rs        # Gestion de l'état global
+├── perf.rs         # Surveillance des performances
+├── media.rs        # Gestion des périphériques audio
+└── security.rs     # Permissions & journalisation
+Protocoles IPC :
 
-**IPC Protocols:**
-- `core_runtime.proto` - Core ↔ Deno Runtime
-- `core_shell.proto` - Core RPC service definition
+core_runtime.proto - Cœur ↔ Runtime Deno
+core_shell.proto - Définition du service RPC du Cœur
 
-### 2. Widgets Engine (`/widgets`)
+2. Moteur de Widgets (/widgets)
+Langage : Rust (asynchrone avec Tokio)
+Responsabilités :
 
-**Language:** Rust (async with Tokio)  
-**Responsibilities:**
-- Discover and load widget manifests from `assets/widgets/`
-- Manage widget lifecycle (create, show, hide, destroy instances)
-- Communicate with Servo webview
-- Forward widget messages to shell/core
+Découvrir et charger les manifestes de widgets depuis assets/widgets/
+Gérer le cycle de vie des widgets (créer, afficher, masquer, détruire)
+Communiquer avec la webview Servo
+Transmettre les messages des widgets au shell/cœur
 
-**Key Modules:**
-```
+Modules Principaux :
 widgets/src/
-├── lib.rs       # Library exports
-├── main.rs      # Daemon entry point
-├── manifest.rs  # Widget manifest (TOML) parsing
-├── loader.rs    # Widget discovery & loading
-├── state.rs     # Widget instance state
-├── renderer.rs  # Prepare widgets for rendering
-└── ipc.rs       # Widget IPC server
-```
+├── lib.rs       # Exports de la bibliothèque
+├── main.rs      # Point d'entrée du daemon
+├── manifest.rs  # Lecture des manifestes (TOML)
+├── loader.rs    # Découverte & chargement des widgets
+├── state.rs     # État des instances de widgets
+├── renderer.rs  # Préparation des widgets pour l'affichage
+└── ipc.rs       # Serveur IPC des widgets
+Protocoles IPC :
 
-**IPC Protocols:**
-- `runtime_widgets.proto` - Runtime ↔ Flutter widgets
-- `shell_widgets.proto` - Shell ↔ Servo widgets
+runtime_widgets.proto - Runtime ↔ Widgets Flutter
+shell_widgets.proto - Shell ↔ Widgets Servo
 
-### 3. Applications (`/apps`)
+3. Applications (/apps)
+Langage : TypeScript/JavaScript (GJS)
+Framework : GTK 4 + Adwaita (via GObject Introspection)
+Les applications communiquent avec le cœur via IPC protobuf :
 
-**Language:** TypeScript/JavaScript (GJS)  
-**Framework:** GTK 4 + Adwaita (via GObject Introspection)
+Navigateur - Navigation web avec Servo
+Calendrier - Gestion du calendrier et des événements
+Éditeur - Éditeur de texte avec coloration syntaxique
+Fichiers - Gestionnaire de fichiers
+Mail - Client email (IMAP/SMTP)
+Média - Lecteur audio/vidéo
+Paramètres - Configuration système
+Terminal - Émulateur de terminal
 
-Applications communicate with core via protobuf-based IPC:
+Protocole IPC :
 
-- **Browser** - Web navigation using Servo
-- **Calendar** - Calendar and event management
-- **Editor** - Text editor with syntax highlighting
-- **Files** - File manager
-- **Mail** - Email client (IMAP/SMTP)
-- **Media** - Audio/video player
-- **Settings** - System configuration
-- **Terminal** - Terminal emulator
+apps.proto - Applications ↔ Cœur
 
-**IPC Protocol:**
-- `apps.proto` - Applications ↔ Core
-
-### 4. Widgets (`/assets/widgets`)
-
-**Format:** HTML/CSS/JavaScript + TOML manifest  
-**Rendering:** Servo webview engine
-
-Each widget has:
-```
+4. Widgets (/assets/widgets)
+Format : HTML/CSS/JavaScript + manifeste TOML
+Rendu : Moteur webview Servo
+Chaque widget contient :
 widget-id/
-├── manifest.toml  # Widget metadata & permissions
-├── index.html     # Main HTML file
-├── style.css      # Styles (optional)
-└── script.js      # Logic (optional)
-```
+├── manifest.toml  # Métadonnées & permissions du widget
+├── index.html     # Fichier HTML principal
+├── style.css      # Styles (optionnel)
+└── script.js      # Logique (optionnel)
+Widgets Inclus :
 
-**Included Widgets:**
-- **dashboard** - System quick access and stats
-- **clock** - Analog/digital clock
-- **sysinfo** - Real-time system information
+dashboard - Accès rapide et statistiques système
+clock - Horloge analogique/numérique
+sysinfo - Informations système en temps réel
 
-### 5. Webview (`/webview`)
+5. Webview (/webview)
+Moteur : Servo (modifié)
+Runtime JavaScript : GJS (GObject JavaScript)
+Bindings : Pont IPC Waylestia
+Fonctionnalités :
 
-**Engine:** Servo (patched)  
-**JavaScript Runtime:** GJS (GObject JavaScript)
-**Bindings:** Waylestia IPC bridge
+Rendu HTML/CSS/JS personnalisé
+Accès système via les APIs GJS
+Pont IPC vers le cœur/shell
+Isolation de sécurité (sandboxing)
 
-Features:
-- Custom HTML/CSS/JS rendering
-- System access through GJS APIs
-- IPC bridge to core/shell
-- Security sandboxing
+6. Protocol Buffers (/protobuf)
+Spécification centralisée des messages pour tous les composants :
 
-### 6. Protocol Buffers (`/protobuf`)
+core_runtime.proto - Performances, média, événements fenêtres
+core_shell.proto - Définitions des services RPC
+runtime_widgets.proto - Cycle de vie des widgets
+shell_widgets.proto - Gestion de l'affichage des widgets
+apps.proto - Intégration des applications
 
-Central messaging specification for all components:
+Avantages par rapport à D-Bus :
 
-- **core_runtime.proto** - Performance, media, window events
-- **core_shell.proto** - RPC service definitions
-- **runtime_widgets.proto** - Widget lifecycle
-- **shell_widgets.proto** - Widget display management
-- **apps.proto** - Application integration
+Typage fort (validation du schéma)
+Meilleures performances (encodage binaire)
+Pas de dépendance à un daemon (client-serveur direct)
+Compatibilité entre versions
+Définitions d'API propres
 
-**Benefits over D-Bus:**
-- Type safety (schema validation)
-- Better performance (binary encoding)
-- No daemon dependency (direct client-server)
-- Version compatibility
-- Clean API definitions
+7. Scripts (/scripts)
+Automatisation et gestion des services :
 
-### 7. Scripts (`/scripts`)
+install.sh - Compiler et tout installer
+uninstall.sh - Supprimer l'installation
+start.sh - Démarrer les services
+stop.sh - Arrêter les services
+restart.sh - Redémarrer les services
 
-Automation and service management:
-
-- **install.sh** - Build and install everything
-- **uninstall.sh** - Remove installation
-- **start.sh** - Start services
-- **stop.sh** - Stop services
-- **restart.sh** - Restart services
-
-Uses systemd user services for auto-management.
-
-## Data Flow Examples
-
-### Example 1: Getting Performance Stats
-
-```
-Shell UI
+Utilise les services utilisateur systemd pour la gestion automatique.
+Exemples de Flux de Données
+Exemple 1 : Obtenir les Statistiques de Performance
+Interface Shell
   └─> sendMessage('GetPerfStats')
-      └─> Core (via protobuf IPC)
-          └─> sysinfo library (perf.rs)
+      └─> Cœur (via IPC protobuf)
+          └─> bibliothèque sysinfo (perf.rs)
           └─> returnPerfStats()
-      └─> Shell receives stats
-      └─> Update status bar
-```
+      └─> Le Shell reçoit les stats
+      └─> Mise à jour de la barre d'état
+Exemple 2 : Lancer une Application
+L'utilisateur clique sur une app dans le menu
+  └─> Le Shell envoie : requête LaunchApp au Cœur
+  └─> Cœur (apps.proto)
+      └─> Vérifier les permissions (security.rs)
+      └─> Véork du processus + surveillance
+      └─> Envoie l'événement app_started au shell
+  └─> Le Shell attend l'événement fenêtre
+  └─> La fenêtre Hyprland apparaît
+  └─> Le Shell met à jour la liste des apps
+Exemple 3 : Rendu d'un Widget
+L'utilisateur fait un clic droit sur le bureau
+  └─> Shell : RegisterWidget('sysinfo')
+  └─> Cœur (daemon widgets)
+      └─> Charger manifest.toml
+      └─> Lancer une instance Servo
+      └─> Initialisation du pont IPC
+  └─> Servo charge index.html
+  └─> JavaScript initialise window.waylestia
+  └─> Le widget envoie des requêtes IPC au cœur pour les données
+  └─> Le cœur répond via protobuf
+  └─> Le widget s'affiche en temps réel
+Couches de Compatibilité
+Intégration GNOME
 
-### Example 2: Launching an Application
+GSettings → Protobuf ConfigRequest
+D-Bus → Protobuf IPCRequest (message DBusCompat)
+Notifications → Message Protobuf Notification
 
-```
-User clicks app in menu
-  └─> Shell sends: LaunchApp request to Core
-  └─> Core (apps.proto)
-      └─> Check permissions (security.rs)
-      └─> Verify not already running
-      └─> Fork process + monitor
-      └─> Send app_started event to shell
-  └─> Shell waits for window event
-  └─> Hyprland window appears
-  └─> Shell updates app list
-```
+Intégration KDE
 
-### Example 3: Widget Rendering
+Services KDE Plasma → Appels de service Protobuf
+KConfig → Protobuf ConfigRequest
+KNotifications → Message Protobuf Notification
 
-```
-User right-clicks desktop
-  └─> Shell: RegisterWidget('sysinfo')
-  └─> Core (widgets daemon)
-      └─> Load manifest.toml
-      └─> Spawn Servo instance
-      └─> IPC bridge initialization
-  └─> Servo loads index.html
-  └─> JavaScript initializes window.waylestia
-  └─> Widget sends IPC requests to core for data
-  └─> Core responds via protobuf
-  └─> Widget renders in real-time
-```
+Modèle de Sécurité
 
-## Compatibility Layers
+Isolation (Sandboxing) : Les apps demandent des permissions (système de fichiers, réseau, etc.)
+Journalisation : Toutes les demandes de permissions sont enregistrées
+AppArmor/Seccomp : Isolation supplémentaire via Linux
+Validation IPC : Tous les messages sont vérifiés via protobuf
+Approbation Utilisateur : Autorisations interactives pour les opérations sensibles
 
-### GNOME Integration
+Caractéristiques de Performance
+Composant Latence Mémoire Notes Démarrage du cœur< 1s~20 Mo Minimal, asynchrone Rendu widget< 500ms~50-150 Mo Par instance Message IPC< 10msN/ASocket Unix Mise à jour perf~100msN/A Toutes les secondes Lancement app1-3sVariable Dépend de l'app
+Feuille de Route
 
-- **GSettings** → Protobuf ConfigRequest
-- **D-Bus** → Protobuf IPCRequest (DBusCompat message)
-- **Notifications** → Protobuf Notification message
+Transparence Réseau - Hyprland distant via protocole Wayland
+Accélération GPU - Vulkan/OpenGL pour les widgets
+Multi-Écrans - Réseau mesh pour les écrans
+WebAssembly - Modules WASM dans les widgets
+Rechargement à Chaud - Hot reload pour le développement de widgets
+Flutter Desktop - Intégration native des apps Flutter
 
-### KDE Integration
-
-- **KDE Plasma** services → Protobuf service calls
-- **KConfig** → Protobuf ConfigRequest
-- **KNotifications** → Protobuf Notification message
-
-## Security Model
-
-1. **Sandboxing**: Apps request permissions (filesystem, network, etc.)
-2. **Audit Logging**: All permission requests logged
-3. **AppArmor/Seccomp**: Additional sandboxing via Linux
-4. **IPC Validation**: All messages type-checked via protobuf
-5. **User Approval**: Interactive permission grants for sensitive operations
-
-## Performance Characteristics
-
-| Component | Latency | Memory | Notes |
-|-----------|---------|--------|-------|
-| Core startup | < 1s | ~20 MB | Minimal, async |
-| Widget render | < 500ms | ~50-150 MB | Per instance |
-| IPC message | < 10ms | N/A | Unix socket |
-| Perf update | ~100ms | N/A | Every 1 second |
-| App launch | 1-3s | Variable | Depends on app |
-
-## Future Roadmap
-
-1. **Network Transparency** - Remote Hyprland over Wayland protocol
-2. **GPU Acceleration** - Vulkan/OpenGL for widgets
-3. **Multi-Display** - Mesh networking for displays
-4. **WebAssembly** - WASM modules in widgets
-5. **Live UI Reload** - Hot reload for widget development
-6. **Flutter Desktop** - Native Flutter app integration
-
-## Development Workflow
-
-```bash
-# Build everything
+Workflow de Développement
+bash# Tout compiler
 ./scripts/install.sh
 
-# Run in development
+# Lancer en développement
 systemctl --user start waylestia-core
 systemctl --user start waylestia-widgets
 
-# Check logs
+# Voir les logs
 journalctl --user -u waylestia-core -f
 
-# Modify code and rebuild
+# Modifier le code et recompiler
 cd core && cargo build --release && cd ..
 
-# Restart service
+# Redémarrer le service
 systemctl --user restart waylestia-core
-```
-
-## File Locations (After Installation)
-
-```
+Emplacements des Fichiers (Après Installation)
 /usr/local/bin/
-├── waylestia-core     # Core daemon
-├── waylestia-widgets  # Widgets engine
+├── waylestia-core     # Daemon principal
+├── waylestia-widgets  # Moteur de widgets
 └── waylestia-shell    # Shell (Deno)
 
 /usr/local/share/waylestia/
@@ -314,18 +266,13 @@ systemctl --user restart waylestia-core
 ~/.config/systemd/user/
 ├── waylestia-core.service
 └── waylestia-widgets.service
-```
-
-## Conclusion
-
-Waylestia provides a modern, modular desktop environment that:
-
-✅ Replaces GNOME/KDE with simpler architecture  
-✅ Uses Rust for performance and safety  
-✅ Implements clean protobuf-based IPC  
-✅ Maintains GTK compatibility  
-✅ Supports custom widgets via Servo + GJS  
-✅ Prioritizes security through sandboxing  
-✅ Enables hardware acceleration  
-
-A complete, cohesive, Linux desktop suite for the Wayland era.
+Conclusion
+Waylestia offre un environnement de bureau moderne et modulaire qui :
+✅ Remplace GNOME/KDE avec une architecture plus simple
+✅ Utilise Rust pour la performance et la sécurité
+✅ Implémente une IPC propre basée sur protobuf
+✅ Maintient la compatibilité GTK
+✅ Supporte des widgets personnalisés via Servo + GJS
+✅ Priorise la sécurité grâce à l'isolation (sandboxing)
+✅ Permet l'accélération matérielle
+Une suite bureautique Linux complète et cohérente pour l'ère Wayland.
