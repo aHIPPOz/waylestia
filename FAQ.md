@@ -326,11 +326,11 @@ Older systems will work but may feel sluggish.
 
 Comparable performance but with more features:
 
-| Aspect           | Sway | Waylestia |
-|------------------|------|-----------|
-| Window switching | ~5ms | ~50ms |
-| Memory overhead  | ~10MB | ~80MB |
-| Startup          | ~0.5s      | ~2s |
+| Aspect           | Sway       | Waylestia  |
+|------------------|------------|------------|
+| Window switching | ~5ms       | ~50ms      |
+| Memory overhead  | ~10MB      | ~80MB      |
+| Startup          | ~0.5s      | ~2s        |
 | Responsiveness   | Very quick | Responsive |
 
 Waylestia has more features (taskbar, widgets) but uses more resources.
@@ -345,10 +345,7 @@ Waylestia is designed for **Hyprland** primarily.
 
 Compatibility:
 - **Hyprland**: ✅ Full support
-- **Sway**: 🟡 Partial (no advanced features)
-- **KWin**: ❌ Not tested
-- **Mutter**: ❌ Not tested
-- **X11**: ❌ No support (Wayland only)
+- **WayFire**: 🟡 Partial (no advanced features)
 
 ### Can I use Waylestia with GNOME instead of Hyprland?
 
