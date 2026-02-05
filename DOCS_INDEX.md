@@ -1,456 +1,295 @@
-# Waylestia Documentation Index
+Index de la documentation Waylestia
 
-Welcome to the Waylestia documentation! This index will help you navigate all available guides and references.
+Bienvenue dans la documentation de Waylestia !
+Cet index vous aide à naviguer parmi tous les guides et références disponibles.
 
-## 📚 Documentation Overview
+📚 Vue d’ensemble de la documentation
 
-**Total Documentation**: 4,400+ lines across 11 files  
-**Last Updated**: 2026  
-**Status**: Complete & Comprehensive
+Périmètre : documentation du projet Waylestia
+Phase : lancement initial (2026)
+Statut : documentation active et en évolution
 
----
+ℹ️ Les contenus et métriques peuvent évoluer rapidement durant les premières versions du projet.
 
-## 1. Getting Started
-
-### [README.md](README.md) - Project Overview (4.3 KB)
-Start here if you're new to Waylestia!
+1. Bien démarrer
+README.md
+ — Présentation du projet
 
-**Contains**:
-- Project introduction and vision
-- Quick feature summary
-- Basic installation instructions
-- Key technologies used
-- Contribution invitation
+Point d’entrée recommandé si vous découvrez Waylestia.
 
-**Best for**: First-time visitors, understanding what Waylestia is
-
----
+Contenu :
 
-## 2. Installation & Setup
+Présentation et objectifs du projet
 
-### [DEVELOPMENT.md](DEVELOPMENT.md) - Development Guide (14 KB) ⭐
-Complete setup and development instructions.
+Aperçu des fonctionnalités principales
 
-**Contains**:
-- Detailed prerequisites and system requirements
-- Quick start guide
-- Project structure explanation
-- Building individual components
-- Running tests and services
-- Code organization standards
-- Debugging with GDB/LLDB
-- Performance profiling tips
-- Common coding patterns
+Instructions d’installation de base
 
-**Best for**: Setting up development environment, building from source
-
-### [QUICK_REFERENCE.md](QUICK_REFERENCE.md) - Cheat Sheet (8 KB)
-Fast lookup for common commands and tasks.
+Technologies utilisées
 
-**Contains**:
-- Installation commands
-- Build/test/format commands
-- Service control commands
-- File locations
-- Widget creation template
-- Useful aliases
-- Git workflow
-- Common troubleshooting fixes
+Invitation à contribuer
 
-**Best for**: Quick lookup while developing, common tasks
+Idéal pour : nouveaux utilisateurs, compréhension générale du projet
 
----
+2. Installation et configuration
+DEVELOPMENT.md
+ — Guide de développement ⭐
 
-## 3. Learning
+Guide complet pour configurer et développer Waylestia.
 
-### [ARCHITECTURE.md](ARCHITECTURE.md) - System Design (11 KB) ⭐
-Deep dive into Waylestia's architecture.
+Contenu :
 
-**Contains**:
-- System overview diagram
-- Component breakdown (core, widgets, apps, webview)
-- Data flow examples
-- IPC communication details
-- Security model
-- Performance metrics
-- Compatibility layer information
-- Development workflow
-- Post-installation file locations
-
-**Best for**: Understanding how Waylestia works, planning modifications
+Prérequis détaillés et configuration système
 
-### [FAQ.md](FAQ.md) - Frequently Asked Questions (14 KB)
-Answers to common questions.
+Démarrage rapide
 
-**Contains**:
-- General questions (what is Waylestia, comparisons)
-- Installation & setup FAQ
-- Building & development questions
-- Features & functionality
-- Performance & system resources
-- Compatibility questions
-- Troubleshooting basics
-- Contributing guidelines
-- Legal & licensing info
-
-**Best for**: Finding answers, understanding capabilities
+Structure du projet
 
----
+Compilation des composants
 
-## 4. Doing Things
+Exécution des tests et services
 
-### [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution Guide (8.3 KB)
-How to contribute to the project.
+Organisation du code
 
-**Contains**:
-- Code of conduct
-- Setting up development environment
-- Making changes (Rust/TypeScript/Protobuf)
-- Commit message guidelines
-- Pull request process
-- Code style guidelines
-- Project structure overview
-- Getting help
-
-**Best for**: Contributing code or documentation, understanding standards
-
-### [ROADMAP.md](ROADMAP.md) - Feature Roadmap (8.7 KB)
-Future plans and version timeline.
-
-**Contains**:
-- Version roadmap (v0.1.0 through v0.4.0+)
-- Completed features per version
-- Planned features with timelines
-- Milestones and goals
-- Community contribution process
-- Related and similar projects
-
-**Best for**: Understanding future direction, choosing what to work on
-
----
-
-## 5. Problem Solving
-
-### [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - Issue Resolution (13 KB) ⭐
-Detailed solutions for common problems.
-
-**Contains**:
-- Installation issues (missing dependencies, compilation)
-- Build errors (type mismatches, linker issues)
-- Runtime problems (services crashing, memory leaks)
-- IPC & network issues
-- Wayland/display compatibility
-- Permission & security issues
-- File & configuration problems
-- Getting help if stuck
-
-**Best for**: Fixing problems, debugging issues
-
----
-
-## 6. Project Info
-
-### [CHANGELOG.md](CHANGELOG.md) - Version History (6.5 KB)
-What's new in each version.
-
-**Contains**:
-- v0.1.0 release notes
-- Feature summary by component
-- Technical stack overview
-- Architecture highlights
-- Getting started instructions
-- Project metrics (binary size, memory, startup)
-- Future roadmap snapshot
-- Contributors
-
-**Best for**: Understanding what's changed, version jumping
-
-### [SECURITY.md](SECURITY.md) - Security Policy (5.3 KB)
-Security guidelines and vulnerability reporting.
-
-**Contains**:
-- Supported versions
-- Vulnerability reporting process
-- Security best practices
-- Security considerations
-- Known limitations
-- Vulnerability categories
-- Dependency scanning info
-- Security contacts
-
-**Best for**: Security concerns, reporting vulnerabilities
-
-### [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) - Community Standards (5.0 KB)
-Community behavior expectations.
-
-**Contains**:
-- Commitment to inclusivity
-- Expected behavior
-- Unacceptable behavior
-- Enforcement process
-- Reporting procedures
-- Consequences
-- Attribution
-
-**Best for**: Understanding community values, resolving conflicts
-
----
-
-## 🗺️ Navigation by Topic
-
-### By Experience Level
-
-**Beginner**:
-1. Start with [README.md](README.md)
-2. Read [FAQ.md](FAQ.md) for questions
-3. Follow [DEVELOPMENT.md](DEVELOPMENT.md#quick-start) Quick Start
-4. Use [QUICK_REFERENCE.md](QUICK_REFERENCE.md) for commands
-
-**Intermediate**:
-1. Read [ARCHITECTURE.md](ARCHITECTURE.md)
-2. Follow [DEVELOPMENT.md](DEVELOPMENT.md) full guide
-3. Check [CONTRIBUTING.md](CONTRIBUTING.md) before coding
-4. Reference [TROUBLESHOOTING.md](TROUBLESHOOTING.md) as needed
-
-**Advanced**:
-1. Study [ARCHITECTURE.md](ARCHITECTURE.md) thoroughly
-2. Review source code while reading docs
-3. Plan contributions using [ROADMAP.md](ROADMAP.md)
-4. Optimize using performance sections in [DEVELOPMENT.md](DEVELOPMENT.md)
+Débogage (GDB / LLDB)
 
-### By Task
-
-**I want to...**
+Profilage des performances
 
-| Task | Document | Section |
-|------|----------|---------|
-| Understand Waylestia | [README.md](README.md) | Project Overview |
-| Set up development | [DEVELOPMENT.md](DEVELOPMENT.md) | Prerequisites → Quick Start |
-| Build from source | [QUICK_REFERENCE.md](QUICK_REFERENCE.md) | Installation |
-| Create a widget | [FAQ.md](FAQ.md) | Can I create my own widgets? |
-| Contribute code | [CONTRIBUTING.md](CONTRIBUTING.md) | Making Changes |
-| Report a bug | [FAQ.md](FAQ.md) | How do I report a bug? |
-| Report vulnerability | [SECURITY.md](SECURITY.md) | Reporting a Vulnerability |
-| Fix a problem | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | Common Issues |
-| Understand architecture | [ARCHITECTURE.md](ARCHITECTURE.md) | System Overview |
-| See what's planned | [ROADMAP.md](ROADMAP.md) | Version Planning |
-| Find commands | [QUICK_REFERENCE.md](QUICK_REFERENCE.md) | Common Commands |
-
-### By Problem Type
-
-| Problem | Document |
-|---------|----------|
-| Build fails | [TROUBLESHOOTING.md](TROUBLESHOOTING.md#build-issues) |
-| Service won't start | [TROUBLESHOOTING.md](TROUBLESHOOTING.md#issue-services-wont-start-systemd) |
-| Widgets missing | [TROUBLESHOOTING.md](TROUBLESHOOTING.md#issue-widgets-dont-load) |
-| High CPU/Memory | [TROUBLESHOOTING.md](TROUBLESHOOTING.md#issue-high-cpu-usage) |
-| Installation fails | [TROUBLESHOOTING.md](TROUBLESHOOTING.md#installation-issues) |
-| Permission denied | [TROUBLESHOOTING.md](TROUBLESHOOTING.md#issue-permission-denied-errors) |
+Patterns de développement courants
 
----
-
-## 📖 Learning Path
-
-### For End Users
-
-1. **Learn about Waylestia**
-   - Read: [README.md](README.md)
-   - Read: [FAQ.md](FAQ.md#general-questions)
-
-2. **Install & Run**
-   - Follow: [DEVELOPMENT.md](DEVELOPMENT.md#quick-start)
-   - Reference: [QUICK_REFERENCE.md](QUICK_REFERENCE.md#installation)
-
-3. **Explore Features**
-   - Read: [FAQ.md](FAQ.md#features--functionality)
-   - Check: [ROADMAP.md](ROADMAP.md)
-
-4. **Customize & Create Widgets**
-   - Follow: [FAQ.md](FAQ.md#can-i-create-my-own-widgets)
-   - Reference: [ARCHITECTURE.md](ARCHITECTURE.md) webview section
-
-### For Contributors
-
-1. **Understand the Project**
-   - Read: [README.md](README.md)
-   - Study: [ARCHITECTURE.md](ARCHITECTURE.md)
-
-2. **Set Up Environment**
-   - Follow: [DEVELOPMENT.md](DEVELOPMENT.md) entire guide
-   - Reference: [Getting Help](DEVELOPMENT.md#useful-commands)
-
-3. **Learn Contribution Process**
-   - Read: [CONTRIBUTING.md](CONTRIBUTING.md)
-   - Review: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
-
-4. **Find What to Work On**
-   - Read: [ROADMAP.md](ROADMAP.md#contributing-to-the-roadmap)
-   - Check GitHub issues (good-first-issue label)
-
-5. **Start Contributing**
-   - Small changes: Documentation, comments
-   - Medium: Bug fixes from issues
-   - Large: Features from roadmap
-
-### For Maintainers
-
-1. **Project Overview**
-   - [README.md](README.md)
-   - [ARCHITECTURE.md](ARCHITECTURE.md)
-
-2. **Community Management**
-   - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
-   - [CONTRIBUTING.md](CONTRIBUTING.md)
-
-3. **Releases & Planning**
-   - [ROADMAP.md](ROADMAP.md)
-   - [CHANGELOG.md](CHANGELOG.md)
-
-4. **Security & Support**
-   - [SECURITY.md](SECURITY.md)
-   - [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+Idéal pour : installation depuis les sources, environnement de développement
 
----
-
-## 🔍 Quick Search
-
-### Common Questions
-
-**Installation**:
-- How do I install? → [DEVELOPMENT.md Quick Start](DEVELOPMENT.md#quick-start)
-- What do I need? → [DEVELOPMENT.md Prerequisites](DEVELOPMENT.md#prerequisites)
-- Installation failed → [TROUBLESHOOTING.md Installation](TROUBLESHOOTING.md#installation-issues)
+QUICK_REFERENCE.md
+ — Référence rapide
 
-**Development**:
-- How do I build? → [QUICK_REFERENCE.md Development](QUICK_REFERENCE.md#development)
-- What's the structure? → [DEVELOPMENT.md Project Structure](DEVELOPMENT.md#project-structure)
-- How do I test? → [QUICK_REFERENCE.md Testing](QUICK_REFERENCE.md#testing)
-
-**Features**:
-- What can it do? → [README.md Features](README.md) or [FAQ.md](FAQ.md#features--functionality)
-- When is X coming? → [ROADMAP.md](ROADMAP.md)
-- Can I create widgets? → [FAQ.md](FAQ.md#can-i-create-my-own-widgets)
-
-**Problems**:
-- Build error → [TROUBLESHOOTING.md Build Issues](TROUBLESHOOTING.md#build-issues)
-- Runtime error → [TROUBLESHOOTING.md Runtime Issues](TROUBLESHOOTING.md#runtime-issues)
-- Still stuck? → [TROUBLESHOOTING.md Getting Help](TROUBLESHOOTING.md#getting-help)
-
-**Contributing**:
-- How to contribute? → [CONTRIBUTING.md](CONTRIBUTING.md)
-- Code standards? → [CONTRIBUTING.md Style Guidelines](CONTRIBUTING.md#style-guidelines)
-- What to work on? → [ROADMAP.md Contributing](ROADMAP.md#contributing-to-the-roadmap)
-
----
+Aide-mémoire pour les commandes et tâches courantes.
 
-## 📊 Documentation Stats
+Contenu :
 
-| Metric | Value |
-|--------|-------|
-| **Total Files** | 11 .md files |
-| **Total Lines** | 4,400+ |
-| **Total Size** | 90+ KB |
-| **Largest** | DEVELOPMENT.md & FAQ.md (14 KB each) |
-| **Topics Covered** | 50+ |
-| **Code Examples** | 100+ |
-| **Sections** | 200+ |
+Commandes d’installation
 
----
+Build / test / formatage
 
-## 🔗 Related Resources
+Gestion des services
 
-### External Documentation
-- [GTK 4 Documentation](https://docs.gtk.org/gtk4/)
-- [Rust Book](https://doc.rust-lang.org/book/)
-- [Protocol Buffers Guide](https://developers.google.com/protocol-buffers)
-- [Hyprland Documentation](https://wiki.hyprland.org/)
-- [Wayland Documentation](https://wayland.freedesktop.org/)
+Emplacements des fichiers
 
-### Tools & Commands
-- [GNU Make Manual](https://www.gnu.org/software/make/manual/)
-- [Cargo Book](https://doc.rust-lang.org/cargo/)
-- [Systemd Manual](https://www.freedesktop.org/software/systemd/man/)
-- [journalctl Guide](https://www.freedesktop.org/software/systemd/man/journalctl.html)
+Modèle de création de widget
 
-### Community
-- GitHub Issues: Bug reports and features
-- GitHub Discussions: Questions and ideas
-- (Coming) IRC/Matrix: Real-time chat
-- (Coming) Discord: Community server
+Workflow Git
 
----
+Solutions rapides aux problèmes fréquents
 
-## 💡 Tips for Finding Information
+Idéal pour : consultation rapide pendant le développement
 
-### Search Tips
+3. Comprendre le projet
+ARCHITECTURE.md
+ — Architecture du système ⭐
 
-1. **Use Ctrl+F** to search within a document
-2. **Check the Index** - this file for quick navigation
-3. **Use the Table of Contents** in each document
-4. **Look for Bold/Italics** - highlights important info
-5. **Check code blocks** for examples
+Analyse détaillée de la conception de Waylestia.
 
-### Navigation Tips
+Contenu :
 
-1. **Blue text** = clickable links to other documents
-2. **Monospace text** = code/commands
-3. **> Blocks** = notes and tips
-4. **| Tables** = organized reference info
+Vue d’ensemble du système
 
-### Reading Tips
+Description des composants (core, widgets, apps, webview)
 
-1. Start with the relevant document's intro
-2. Skip sections not applicable to you
-3. Use Ctrl+F to find specific topics
-4. Check examples for your use case
-5. Cross-reference related documents
+Flux de données
 
----
+Communication IPC
 
-## ❓ Can't Find What You Need?
+Modèle de sécurité
 
-1. **Check Table of Contents** in each document
-2. **Search this index** (Ctrl+F)
-3. **Read FAQ.md** for common questions
-4. **Review TROUBLESHOOTING.md** for problems
-5. **Open a GitHub issue** if truly stuck
-6. **Join community discussions** for help
+Considérations de performance
 
----
+Organisation post-installation
 
-## 📝 Document Metadata
+Idéal pour : comprendre le fonctionnement interne, planifier des évolutions
 
-| Document | Lines | Size | Last Updated | Purpose |
-|----------|-------|------|--------------|---------|
-| README.md | 150 | 4.3 KB | 2024 | Project intro |
-| DEVELOPMENT.md | 480 | 14 KB | 2024 | Dev setup guide |
-| ARCHITECTURE.md | 380 | 11 KB | 2024 | System design |
-| FAQ.md | 520 | 14 KB | 2024 | Q&A reference |
-| CONTRIBUTING.md | 300 | 8.3 KB | 2024 | Contribution guide |
-| TROUBLESHOOTING.md | 480 | 13 KB | 2024 | Problem solving |
-| ROADMAP.md | 330 | 8.7 KB | 2024 | Future plans |
-| CHANGELOG.md | 250 | 6.5 KB | 2024 | Release notes |
-| SECURITY.md | 200 | 5.3 KB | 2024 | Security policy |
-| CODE_OF_CONDUCT.md | 180 | 5.0 KB | 2024 | Community standards |
-| QUICK_REFERENCE.md | 380 | 8 KB | 2024 | Command cheat sheet |
+FAQ.md
+ — Foire aux questions
 
----
+Réponses aux questions les plus fréquentes.
 
-## 🎯 Next Steps
+Contenu :
 
-**New users**: Start with [README.md](README.md) → [DEVELOPMENT.md Quick Start](DEVELOPMENT.md#quick-start)
+Présentation générale
 
-**Contributors**: Read [CONTRIBUTING.md](CONTRIBUTING.md) → [DEVELOPMENT.md](DEVELOPMENT.md)
+Installation et compilation
 
-**Maintainers**: Review all documents, focus on [ROADMAP.md](ROADMAP.md) & [SECURITY.md](SECURITY.md)
+Fonctionnalités
 
-**Reported bug**: Start with [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+Performances et ressources
 
-**Have question**: Check [FAQ.md](FAQ.md) first
+Compatibilité
 
----
+Dépannage de base
 
-**Happy exploring!** 🚀
+Contribution et licence
 
-For the latest information, always visit the official repository.  
-Documentation is always evolving - check back regularly for updates.
+Idéal pour : obtenir rapidement des réponses
+
+4. Contribuer et agir
+CONTRIBUTING.md
+ — Guide de contribution
+
+Règles et processus pour contribuer au projet.
+
+Contenu :
+
+Code de conduite
+
+Mise en place de l’environnement
+
+Bonnes pratiques de développement
+
+Messages de commit
+
+Processus de Pull Request
+
+Règles de style
+
+Où demander de l’aide
+
+Idéal pour : contributeurs code et documentation
+
+ROADMAP.md
+ — Feuille de route
+
+Vision et planification des versions futures.
+
+Contenu :
+
+Objectifs par version
+
+Fonctionnalités prévues
+
+Jalons
+
+Priorités communautaires
+
+Idéal pour : savoir où va le projet, choisir sur quoi travailler
+
+5. Résolution de problèmes
+TROUBLESHOOTING.md
+ — Dépannage ⭐
+
+Solutions détaillées aux problèmes courants.
+
+Contenu :
+
+Problèmes d’installation
+
+Erreurs de build
+
+Problèmes d’exécution
+
+IPC et affichage Wayland
+
+Permissions et sécurité
+
+Où demander de l’aide
+
+Idéal pour : diagnostiquer et corriger des erreurs
+
+6. Informations projet
+CHANGELOG.md
+ — Historique des versions
+
+Résumé des changements par version.
+
+Contenu :
+
+Notes de version
+
+Évolutions techniques
+
+Améliorations majeures
+
+SECURITY.md
+ — Politique de sécurité
+
+Gestion des vulnérabilités et bonnes pratiques.
+
+Contenu :
+
+Versions supportées
+
+Procédure de signalement
+
+Bonnes pratiques de sécurité
+
+CODE_OF_CONDUCT.md
+ — Code de conduite
+
+Règles de comportement de la communauté.
+
+Contenu :
+
+Valeurs du projet
+
+Comportements attendus et interdits
+
+Procédure de signalement
+
+🗺️ Navigation par profil
+Débutant
+
+README.md
+
+FAQ.md
+
+DEVELOPMENT.md – Démarrage rapide
+
+QUICK_REFERENCE.md
+
+Intermédiaire
+
+ARCHITECTURE.md
+
+DEVELOPMENT.md
+
+CONTRIBUTING.md
+
+TROUBLESHOOTING.md
+
+Avancé
+
+Étude complète de l’architecture
+
+Lecture du code source
+
+Planification via la roadmap
+
+Optimisation et performance
+
+🔍 Recherche rapide
+Objectif	Document
+Comprendre Waylestia	README.md
+Installer / développer	DEVELOPMENT.md
+Résoudre un problème	TROUBLESHOOTING.md
+Contribuer	CONTRIBUTING.md
+Voir l’avenir	ROADMAP.md
+📌 Notes importantes
+
+Les dates reflètent la phase de lancement initiale (2026).
+
+La documentation est évolutive.
+
+Certaines sections peuvent être incomplètes ou ajustées au fil du développement.
+
+Les métriques globales ne sont pas figées à ce stade.
+
+🎯 Prochaines étapes
+
+Nouveaux utilisateurs : README → DEVELOPMENT (Quick Start)
+
+Contributeurs : CONTRIBUTING → DEVELOPMENT
+
+Problème rencontré : TROUBLESHOOTING
+
+Question générale : FAQ
+
+Bonne exploration 🚀
+Pour les informations les plus récentes, consultez toujours le dépôt officiel.
+La documentation évolue en même temps que le projet.
