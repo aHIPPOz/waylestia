@@ -1,378 +1,372 @@
-# Contributing to Waylestia
+Contribuer à Waylestia
 
-Thank you for your interest in contributing to Waylestia! This document provides guidelines and instructions for contributing.
+Nous nous engageons à maintenir une communauté accueillante et inspirante pour tous. Merci de lire et de respecter notre code de conduite :
 
-## Table of Contents
+Soyez respectueux et constructif dans toutes vos interactions.
 
-1. [Code of Conduct](#code-of-conduct)
-2. [Getting Started](#getting-started)
-3. [Development Setup](#development-setup)
-4. [Making Changes](#making-changes)
-5. [Submitting Changes](#submitting-changes)
-6. [Style Guidelines](#style-guidelines)
-7. [Project Structure](#project-structure)
+Accueillez la diversité des points de vue et des expériences.
 
-## Code of Conduct
+Concentrez-vous sur ce qui est le mieux pour la communauté.
 
-We are committed to providing a welcoming and inspiring community for all. Please read and follow our Code of Conduct:
+Faites preuve d’empathie envers les autres membres de la communauté.
 
-- Be respectful and constructive in all interactions
-- Welcome diverse perspectives and experiences
-- Focus on what is best for the community
-- Show empathy towards other community members
-- Report inappropriate behavior to [team email]
+Signalez les comportements inappropriés à [azerty.of.game@gmail.com].
 
-## Getting Started
+Prise en main
+Prérequis
 
-### Prerequisites
+Rust 1.70+ (installez depuis https://rustup.rs/
+)
 
-- Rust 1.70+ (install from https://rustup.rs/)
-- Cargo (comes with Rust)
-- Git
-- Linux (Ubuntu 20.04+ recommended, or Fedora 36+)
-- Basic knowledge of Rust, TypeScript, and GTK
+Cargo (fourni avec Rust)
 
-### Fork and Clone
+Git
 
-1. Fork the repository on GitHub
-2. Clone your fork:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/waylestia.git
-   cd waylestia
-   ```
-3. Add upstream remote:
-   ```bash
-   git remote add upstream https://github.com/aHIPPOz/waylestia.git
-   ```
+Linux (Ubuntu 20.04+ recommandé, ou Fedora 36+)
 
-## Development Setup
+Connaissances de base en Rust, TypeScript et GTK
 
-### Build from Source
+Fork et clonage
 
-```bash
-# Install dependencies (Ubuntu)
+Forkez le dépôt sur GitHub.
+
+Clonez votre fork :
+
+git clone https://github.com/YOUR_USERNAME/waylestia.git
+cd waylestia
+
+Ajoutez la remote upstream :
+
+git remote add upstream https://github.com/aHIPPOz/waylestia.git
+Configuration du développement
+Compiler depuis les sources
+# Installer les dépendances (Ubuntu)
 sudo apt-get install build-essential pkg-config libgtk-4-dev libadwaita-1-dev
 
-# Or Fedora
+
+# Ou Fedora
 sudo dnf install gcc pkg-config gtk4-devel libadwaita-devel
 
-# Build all components
+
+# Compiler tous les composants
 make all
 
-# Or individually
+
+# Ou individuellement
 make core
 make widgets
-```
-
-### Run Services
-
-```bash
-# Install to ~/.local (recommended for development)
+Lancer les services
+# Installer dans ~/.local (recommandé pour le développement)
 INSTALL_PREFIX=$HOME/.local make install
 
-# Or use systemd
+
+# Ou utiliser systemd
 ./scripts/install.sh
 
-# Start
+
+# Démarrer
 systemctl --user start waylestia-core
 systemctl --user start waylestia-widgets
 
-# View logs
+
+# Voir les logs
 journalctl --user -u waylestia-core -f
-```
-
-### Development Workflow
-
-```bash
-# Make your changes
-# Test locally
+Flux de travail de développement
+# Apportez vos modifications
+# Testez localement
 make test
 
-# Check code quality
+
+# Vérifiez la qualité du code
 make lint
 make fmt
 
-# Rebuild after changes
+
+# Recompiler après modifications
 make clean
-make core  # or make widgets
+make core  # ou make widgets
 
-# Restart services
+
+# Redémarrer les services
 systemctl --user restart waylestia-core
-```
+Effectuer des modifications
+Choisir une issue
 
-## Making Changes
+Recherchez les issues étiquetées good-first-issue ou help-wanted.
 
-### Choose an Issue
+Commentez l’issue pour informer les mainteneurs que vous travaillez dessus.
 
-1. Look for issues labeled `good-first-issue` or `help-wanted`
-2. Comment on the issue to let maintainers know you're working on it
-3. Create a new branch for your work
+Créez une nouvelle branche pour votre travail.
 
-### Create a Feature Branch
-
-```bash
-# Update main branch
+Créer une branche de fonctionnalité
+# Mettre à jour la branche main
 git fetch upstream
 git checkout main
 git merge upstream/main
 
-# Create feature branch
+
+# Créer la branche de fonctionnalité
 git checkout -b feature/your-feature-name
-```
+Modifications de code
+Pour Rust (core, widgets)
 
-### Code Changes
+Respectez les conventions de nommage Rust.
 
-#### For Rust (core, widgets)
+Utilisez cargo fmt avant de committer.
 
-- Follow Rust naming conventions
-- Use `cargo fmt` before committing
-- Run `cargo clippy` for linting
-- Add documentation comments (`///`) for public items
-- Write unit tests for new functionality
+Lancez cargo clippy pour le linting.
 
-```bash
+Ajoutez des commentaires de documentation (///) pour les éléments publics.
+
+Écrivez des tests unitaires pour les nouvelles fonctionnalités.
+
 # Format
 cargo fmt
+
 
 # Lint
 cargo clippy -- -D warnings
 
+
 # Test
 cargo test
-```
+Pour TypeScript/JavaScript (apps)
 
-#### For TypeScript/JavaScript (apps)
+Utilisez des types explicites (évitez any sauf si inévitable).
 
-- Use explicit types (no `any` unless unavoidable)
-- Follow Google TypeScript style guide
-- Add JSDoc comments for functions
-- Keep functions and classes focused and single-purpose
+Suivez le guide de style TypeScript de Google.
 
-#### For Protocol Buffers
+Ajoutez des commentaires JSDoc pour les fonctions.
 
-- Keep message definitions simple and focused
-- Add meaningful comments to fields
-- Use enums for fixed sets of values
-- Maintain backward compatibility
+Gardez les fonctions et classes simples et à responsabilité unique.
 
-### Commit Messages
+Pour Protocol Buffers
 
-Write clear, descriptive commit messages:
+Gardez les définitions de messages simples et ciblées.
 
-```
-Short summary (50 chars max)
+Ajoutez des commentaires significatifs aux champs.
 
-Longer description explaining the change, why it was made, and any
-important details. Wrap at 72 characters. Reference related issues
-with "Fixes #123" or "Related to #456".
+Utilisez des enums pour les ensembles de valeurs fixes.
 
-- Bullet points are helpful
-- For complex changes
-- Explain the rationale
-```
+Maintenez la compatibilité ascendante.
 
-Examples:
-```
+Messages de commit
+
+Rédigez des messages de commit clairs et descriptifs :
+
+Résumé court (50 caractères max)
+
+
+Description plus longue expliquant le changement, pourquoi il a été fait, et tous
+les détails importants. Coupez les lignes à 72 caractères. Référencez les issues
+liées avec "Fixes #123" ou "Related to #456".
+
+
+- Les points de liste sont utiles
+- Pour les changements complexes
+- Expliquez la raison
+
+Exemples :
+
 Add perf monitoring to core daemon
+
 
 Implement CPU/GPU/RAM monitoring via sysinfo crate.
 Exposes metrics via protobuf IPC for shell consumption.
+
 
 - Adds PerfStats protobuf message
 - PerfMonitor struct with update() method
 - Integration with IPC server
 
+
 Fixes #42
-```
+Soumettre des modifications
+Avant de soumettre
 
-## Submitting Changes
+Test de build complet :
 
-### Before Submitting
+make clean
+make all
+make test
 
-1. **Full build test**:
-   ```bash
-   make clean
-   make all
-   make test
-   ```
+Qualité du code :
 
-2. **Code quality**:
-   ```bash
-   make lint
-   make fmt
-   cargo clippy
-   ```
+make lint
+make fmt
+cargo clippy
 
-3. **Documentation**:
-   - Update README.md if behavior changes
-   - Update ARCHITECTURE.md if structure changes
-   - Add code comments for complex logic
-   - Add/update inline documentation
+Documentation :
 
-4. **Commit cleanup**:
-   ```bash
-   # Make sure commits are logical and ordered
-   git log origin/main..HEAD
-   
-   # Squash fixup commits if needed
-   git rebase -i origin/main
-   ```
+Mettez à jour README.md si le comportement change.
 
-### Create a Pull Request
+Mettez à jour ARCHITECTURE.md si la structure change.
 
-1. Push to your fork:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
+Ajoutez des commentaires dans le code pour la logique complexe.
 
-2. Create a Pull Request on GitHub
-3. Fill out the PR template completely
-4. Link related issues
-5. Describe your changes and reasoning
+Ajoutez/mettez à jour la documentation inline.
 
-### PR Review Process
+Nettoyage des commits :
 
-- Maintainers will review your PR
-- Respond to feedback or requests for changes
-- Keep commits logical during review
-- Mark conversations as resolved once addressed
-- A minimum of one approval is required to merge
+# Vérifiez que les commits sont logiques et dans le bon ordre
+git log origin/main..HEAD
 
-## Style Guidelines
 
-### Rust Code
+# Écrasez les commits de correction si nécessaire
+git rebase -i origin/main
+Créer une Pull Request
 
-```rust
-// Use meaningful variable names
+Poussez vers votre fork :
+
+git push origin feature/your-feature-name
+
+Créez une Pull Request sur GitHub.
+
+Remplissez complètement le template de PR.
+
+Liez les issues concernées.
+
+Décrivez vos changements et la motivation.
+
+Processus de revue de PR
+
+Les mainteneurs examineront votre PR.
+
+Répondez aux retours ou demandes de modifications.
+
+Gardez les commits logiques pendant la revue.
+
+Marquez les conversations comme résolues une fois traitées.
+
+Au minimum une approbation est requise pour merger.
+
+Directives de style
+Code Rust
+// Utilisez des noms de variables significatifs
 let widget_count = widgets.len();
 
-// Use module organization
+
+// Utilisez une organisation par modules
 mod widget;
 use widget::{Widget, WidgetState};
 
-// Document public APIs
-/// Creates a new widget instance with the given ID.
+
+// Documentez les APIs publiques
+/// Crée une nouvelle instance de widget avec l'ID donné.
 /// 
 /// # Arguments
-/// * `widget_id` - The unique widget identifier
+/// * `widget_id` - L'identifiant unique du widget
 /// 
 /// # Returns
-/// A new WidgetInstance with default state
+/// Une nouvelle WidgetInstance avec l'état par défaut
 pub fn create_instance(widget_id: String) -> WidgetInstance {
     // ...
 }
 
-// Use Result for fallible operations
+
+// Utilisez Result pour les opérations susceptibles d'échouer
 pub fn load_manifest(path: &Path) -> Result<WidgetManifest> {
     // ...
 }
-```
-
-### TypeScript/JavaScript
-
-```typescript
-// Use explicit types
+TypeScript/JavaScript
+// Utilisez des types explicites
 function updateWidget(id: string, state: WidgetState): void {
     // ...
 }
 
-// Use const by default
+
+// Utilisez const par défaut
 const WIDGET_TIMEOUT = 5000;
 
-// Document with JSDoc
+
+// Documentez avec JSDoc
 /**
- * Initialize the widget application
- * @param elementId - ID of the DOM element to mount on
- * @returns Promise that resolves when ready
+ * Initialise l'application de widgets
+ * @param elementId - ID de l'élément DOM où monter
+ * @returns Promise qui se résout quand l'application est prête
  */
 async function initialize(elementId: string): Promise<void> {
     // ...
 }
-```
-
-### Protocol Buffers
-
-```protobuf
-// Group related messages
+Protocol Buffers
+// Groupez les messages liés
 message PerformanceMetrics {
-  float cpu_usage = 1;      // 0-100 percentage
-  float gpu_usage = 2;      // 0-100 percentage
-  float ram_usage = 3;      // 0-100 percentage
+  float cpu_usage = 1;      // pourcentage 0-100
+  float gpu_usage = 2;      // pourcentage 0-100
+  float ram_usage = 3;      // pourcentage 0-100
   
-  // Reserve fields for future expansion
+  // Réserver des champs pour des extensions futures
   reserved 4, 5;
 }
-```
-
-## Project Structure
-
-```
+Structure du projet
 waylestia/
-├── core/              # Rust daemon - PR guidelines:
-│                      # - Follow Rust conventions
-│                      # - Add tests for new modules
-│                      # - Update state.rs for new data
+├── core/              # Daemon Rust - directives PR :
+│                      # - Respecter les conventions Rust
+│                      # - Ajouter des tests pour les nouveaux modules
+│                      # - Mettre à jour state.rs pour les nouvelles données
 │
-├── widgets/           # Widget engine - PR guidelines:
-│                      # - Maintain loader backwards compat
-│                      # - Test manifest parsing edge cases
+├── widgets/           # Moteur de widgets - directives PR :
+│                      # - Maintenir la compatibilité du chargeur (loader)
+│                      # - Tester les cas limites du parsing des manifests
 │
-├── apps/              # GJS applications - PR guidelines:
-│                      # - Use GTK widgets properly
-│                      # - Implement IPC patterns correctly
+├── apps/              # Applications GJS - directives PR :
+│                      # - Utiliser correctement les widgets GTK
+│                      # - Implémenter correctement les patterns IPC
 │
-├── protobuf/          # Protocol definitions - PR guidelines:
-│                      # - Don't change existing message IDs
-│                      # - Add comments for new messages
-│                      # - Consider forward compatibility
+├── protobuf/          # Définitions de protocoles - directives PR :
+│                      # - Ne pas changer les IDs de messages existants
+│                      # - Ajouter des commentaires pour les nouveaux messages
+│                      # - Penser à la compatibilité future
 │
-├── assets/            # Resources - PR guidelines:
-│                      # - Optimize image sizes
-│                      # - Keep manifests valid
+├── assets/            # Ressources - directives PR :
+│                      # - Optimiser la taille des images
+│                      # - Garder les manifests valides
 │
-└── scripts/           # Build/install tools - PR guidelines:
-                       # - Test on clean system
-                       # - Support INSTALL_PREFIX
-```
-
-## Useful Commands
-
-```bash
-# View file history
+└── scripts/           # Outils de build/install - directives PR :
+                       # - Tester sur une machine propre
+                       # - Supporter INSTALL_PREFIX
+Commandes utiles
+# Voir l'historique d'un fichier
 git log -p -- path/to/file.rs
 
-# Find Contributors
+
+# Trouver les contributeurs
 git shortlog -sn
 
-# Rebase on latest
+
+# Rebaser sur la dernière version
 git fetch upstream
 git rebase upstream/main
 
-# Interactive rebase (edit commits)
+
+# Rebase interactif (éditer les commits)
 git rebase -i HEAD~3
 
-# Squash commits
-git rebase -i master  # mark 'squash' on commits to combine
-```
 
-## Getting Help
+# Écraser des commits
+git rebase -i master  # marquez 'squash' sur les commits à fusionner
+Obtenir de l'aide
 
-- **Questions**: Open an issue with label `question`
-- **Discussion**: Use GitHub Discussions
-- **Bugs**: File an issue with reproduction steps
-- **Chat**: Join our community chat [link]
+Questions : Ouvrez une issue avec le label question.
 
-## Recognition
+Discussion : Utilisez GitHub Discussions.
 
-Contributors will be recognized in:
-- CONTRIBUTORS.md file
-- Release notes
-- GitHub contributors page
+Bugs : Ouvrez une issue avec des étapes de reproduction.
 
-## License
+Chat : Rejoignez notre chat communautaire [https://discord.gg/XHtnVYq9j9].
 
-By contributing, you agree that your contributions will be licensed under the same license as the project (GPL-3.0).
+Reconnaissance
 
----
+Les contributeurs seront reconnus dans :
 
-Thank you for contributing to Waylestia! 🎉
+le fichier CONTRIBUTORS.md
+
+les notes de publication (release notes)
+
+la page des contributeurs GitHub
+
+Licence
+
+En contribuant, vous acceptez que vos contributions soient licenciées sous la même licence que le projet (GPL-3.0).
+
+Merci de contribuer à Waylestia ! 🎉
