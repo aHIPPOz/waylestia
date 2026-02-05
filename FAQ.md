@@ -17,21 +17,23 @@ Waylestia is a modern desktop environment for Linux built on Wayland with the fo
 
 ### How does Waylestia compare to KDE Plasma and GNOME?
 
-| Feature | Waylestia | KDE | GNOME |
-|---------|-----------|-----|-------|
-| Language | Rust | C++ | C |
-| Size | ~50-100MB | ~500MB+ | ~300MB+ |
-| Memory (idle) | ~80MB | ~400MB | ~300MB |
-| Startup | <3s | ~5s | ~4s |
-| Widgets/Applets | Yes (Rust/HTML) | Yes (C++) | Limited |
-| Customization | High | Very High | Moderate |
-| Keyboard Shortcuts | Modern | Extensive | Standard |
-| Ecosystem | Growing | Mature | Stable |
-| Learning Curve | Moderate | High | Low |
+|--------------------|-----------------|-----------|----------|
+| Feature            | Waylestia       | KDE       | GNOME    |
+|--------------------|-----------------|-----------|----------|
+| Language           | Rust            | C++       | C        |
+| Size               | ~50-100MB       | ~500MB+   | ~300MB+  |
+| Memory (idle)      | ~80MB           | ~400MB    | ~300MB   |
+| Startup            | <3s             | ~5s       | ~4s      |
+| Widgets/Applets    | Yes (Rust/HTML) | Yes (C++) | Limited  |
+| Customization      | Very High       | High      | Low      |
+| Keyboard Shortcuts | Modern          | Extensive | Standard |
+| Ecosystem          | Growing         | Mature    | Stable   |
+| Learning Curve     | Moderate        | High      | Low      |
+|--------------------|-----------------|-----------|----------|
 
 ### Is Waylestia production-ready?
 
-Currently: **No, it's in early development (v0.1.0)**
+Currently: **No, it's in early development (v0.1.0) ALPHA VERSION**
 
 - Core functionality: ✅ Working
 - Widget engine: ✅ Working
@@ -324,12 +326,12 @@ Older systems will work but may feel sluggish.
 
 Comparable performance but with more features:
 
-| Aspect | Sway | Waylestia |
-|--------|------|-----------|
+| Aspect           | Sway | Waylestia |
+|------------------|------|-----------|
 | Window switching | ~5ms | ~50ms |
-| Memory overhead | ~10MB | ~80MB |
-| Startup | ~0.5s | ~2s |
-| Responsiveness | Very quick | Responsive |
+| Memory overhead  | ~10MB | ~80MB |
+| Startup          | ~0.5s      | ~2s |
+| Responsiveness   | Very quick | Responsive |
 
 Waylestia has more features (taskbar, widgets) but uses more resources.
 
