@@ -1,109 +1,90 @@
-# Waylestia Community Code of Conduct
+Code de Conduite de la Communauté Waylestia
+Notre Engagement
+Nous nous engageons à offrir une communauté accueillante et inspirante pour tous, indépendamment de l'âge, de la corpulence, du handicap, de l'origine ethnique, de l'identité et de l'expression de genre, du niveau d'expérience, de la nationalité, de l'apparence personnelle, de la race, de la religion, de l'identité et de l'orientation sexuelles, ou du statut socio-économique.
+Dans l'intérêt de favoriser un environnement ouvert et accueillant, nous, contributeurs et mainteneurs, nous engageons à faire de la participation à notre projet et à notre communauté une expérience sans harcèlement pour tous.
+Nos Standards
+Exemples de comportements qui contribuent à créer un environnement positif :
 
-## Our Commitment
+Inclusivité : Utiliser un langage accueillant et inclusif
+Respect : Respecter les opinions, points de vue et expériences différents
+Retour Constructif : Offrir des critiques bienveillantes et constructives et les accepter avec grâce
+Concentration : Se concentrer sur ce qui est le mieux pour la communauté
+Empathie : Faire preuve d'empathie envers les autres membres de la communauté
+Communication : Communiquer de manière claire et professionnelle
+Responsabilité : Assumer la responsabilité de ses erreurs et en tirer des leçons
 
-We are committed to providing a welcoming and inspiring community for all, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, sexual identity and orientation, or socioeconomic status.
+Exemples de comportements inacceptables :
 
-In the interest of fostering an open and welcoming environment, we contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone.
+Harcèlement : Commentaires conçus pour intimider, attaquer ou rabaisser les autres
+Discrimination : Discrimination basée sur des caractéristiques protégées
+Sectarisme : Insultes, blagues offensantes ou langage ciblant des individus ou des groupes
+Attention Sexuelle Non Désirée : Avances sexuelles, contact inapproprié ou création d'un environnement hostile
+Trolling : Antagonisme délibéré, détournement de discussions ou publication de contenu inflammatoire
+Doxxing : Partage d'informations privées sans consentement
+Menaces : Menaces de violence ou de préjudice
+Spam : Contenu répétitif, perturbateur ou non désiré
+Abus de Pouvoir : Suppression de contenu utile ou bannissements sans raison
 
-## Our Standards
+Application
+Les responsables de la communauté sont chargés de clarifier les standards de comportement acceptable et sont tenus de prendre des mesures correctives appropriées et équitables en réponse à tout cas de comportement inacceptable.
+Les responsables de la communauté ont le droit et la responsabilité de supprimer, modifier ou rejeter les commentaires, commits, code, modifications wiki, issues et autres contributions qui ne sont pas alignés avec ce Code de Conduite, et communiqueront les raisons des décisions de modération lorsque cela est approprié.
+Signalement
+Si vous subissez ou êtes témoin d'un comportement inacceptable, ou si vous avez d'autres préoccupations, veuillez le signaler en contactant l'équipe du projet à [azerty.of.game@gmail.com]. Tous les signalements seront examinés et traités rapidement et équitablement.
+Lors d'un signalement, veuillez inclure :
 
-Examples of behavior that contributes to creating a positive environment include:
+Vos coordonnées
+Noms/pseudonymes des parties impliquées
+Description de l'incident
+Contexte et tout lien pertinent
+Toute preuve à l'appui (captures d'écran, logs)
+Si vous souhaitez rester anonyme (nous pouvons généralement le permettre)
 
-- **Inclusivity**: Using welcoming and inclusive language
-- **Respect**: Being respectful of differing opinions, viewpoints, and experiences
-- **Constructive Feedback**: Offering kind, constructive criticism and accepting gracefully
-- **Focus**: Focusing on what is best for the community
-- **Empathy**: Showing empathy towards other community members
-- **Communication**: Communicating clearly and professionally
-- **Accountability**: Taking responsibility for mistakes and learning from them
+Processus d'Investigation
 
-Examples of unacceptable behavior include:
+Réponse Initiale : Nous accuserons réception dans les 48 heures
+Investigation : Nous enquêterons sur l'affaire de manière approfondie
+Décision : Nous déterminerons l'action appropriée
+Communication : Nous vous informerons du résultat (dans les limites de la confidentialité)
 
-- **Harassment**: Comments that are designed to intimidate, attack, or demean others
-- **Discrimination**: Discrimination based on protected characteristics
-- **Bigotry**: Slurs, offensive jokes, or language targeting individuals or groups
-- **Unwelcome Sexual Attention**: Sexual advances, inappropriate contact, or creation of hostile environment
-- **Trolling**: Deliberate antagonism, derailing discussions, or posting inflammatory content
-- **Doxxing**: Sharing private information without consent
-- **Threats**: Threats of violence or harm
-- **Spam**: Repetitive, disruptive, or unwanted content
-- **Abuse of Power**: Removal of helpful content or bans without reason
+La confidentialité sera maintenue dans la mesure du possible lors de l'investigation et de la résolution des préoccupations.
+Conséquences
+Selon les résultats de l'investigation, les actions appropriées peuvent inclure :
 
-## Enforcement
+Première Violation : Avertissement formel et clarification de la politique
+Violations Répétées : Retrait temporaire de la communauté (1-7 jours)
+Violations Graves ou Persistantes : Retrait permanent de la communauté
+Violations Légales : Signalement aux autorités compétentes si nécessaire
 
-Community leaders are responsible for clarifying standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.
+Portée
+Ce Code de Conduite s'applique à :
 
-Community leaders have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, and will communicate reasons for moderation decisions when appropriate.
+Tous les espaces communautaires (GitHub, discussions, chat, forums, réseaux sociaux)
+Espaces officiels du projet (dépôts, sites web, communications)
+Espaces publics lors de la représentation du projet (conférences, événements)
+Communications individuelles entre membres de la communauté concernant les affaires du projet
 
-### Reporting
+Attribution
+Ce Code de Conduite est adapté du Contributor Covenant, version 2.0, disponible à https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
+Directives Supplémentaires
+En tant que Contributeur
 
-If you experience or witness unacceptable behavior, or have other concerns, please report it by contacting the project team at [team email]. All reports will be reviewed and investigated promptly and fairly.
+Présumer la Bonne Foi : La plupart des désaccords sont dus à une mauvaise communication
+Répondre de Manière Réfléchie : Prendre le temps de formuler des réponses attentionnées
+Accepter les Retours : Être ouvert aux retours sur son comportement
+S'excuser : Si vous avez causé du tort, excusez-vous sincèrement et allez de l'avant
+Apprendre : Utiliser les désaccords comme opportunités d'apprentissage
 
-When reporting, please include:
+En tant que Mainteneur
 
-- Your contact information
-- Names/usernames of involved parties
-- Description of the incident
-- Context and any relevant links
-- Any supporting evidence (screenshots, logs)
-- Whether you wish to remain anonymous (we can usually accommodate this)
+Montrer l'Exemple : Démontrer le comportement que vous attendez
+Être Transparent : Expliquer clairement les décisions
+Être Équitable : Appliquer les règles de manière cohérente à tous
+Écouter : Entendre toutes les perspectives avant de décider
+Communiquer : Lors d'une action, expliquer pourquoi
+Protéger : Protéger la communauté du harcèlement et des abus
 
-### Investigation Process
+Questions ?
+Si vous avez des questions concernant ce Code de Conduite, n'hésitez pas à contacter les mainteneurs du projet. Nous sommes là pour assurer une expérience communautaire positive pour tous.
 
-1. **Initial Response**: We will acknowledge receipt within 48 hours
-2. **Investigation**: We will investigate the matter thoroughly
-3. **Decision**: We will determine appropriate action
-4. **Communication**: We will inform you of the outcome (with privacy limits)
-
-Confidentiality will be maintained to the extent possible while investigating and resolving concerns.
-
-## Consequences
-
-Based on investigation findings, appropriate actions may include:
-
-1. **First Violation**: Formal warning and clarification of policy
-2. **Repeated Violations**: Temporary removal from community (1-7 days)
-3. **Severe or Persistent Violations**: Permanent removal from community
-4. **Legal Violations**: Reporting to law enforcement as appropriate
-
-## Scope
-
-This Code of Conduct applies to:
-
-- All community spaces (GitHub, discussions, chat, forums, social media)
-- Official project spaces (repositories, websites, communications)
-- Public spaces when representing the project (conferences, events)
-- One-on-one communications between community members regarding project matters
-
-## Attribution
-
-This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.0, available at https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
-
-## Additional Guidelines
-
-### As a Contributor
-
-- **Assume Good Intent**: Most disagreements are due to miscommunication
-- **Respond Thoughtfully**: Take time to craft considerate responses
-- **Accept Feedback**: Be open to feedback on your behavior
-- **Apologize**: If you've caused harm, apologize genuinely and move forward
-- **Learn**: Use disagreements as learning opportunities
-
-### As a Maintainer
-
-- **Lead by Example**: Demonstrate the behavior you expect
-- **Be Transparent**: Explain decisions clearly
-- **Be Fair**: Apply rules consistently to all
-- **Listen**: Hear all perspectives before deciding
-- **Communicate**: When taking action, explain why
-- **Protect**: Shield community from harassment and abuse
-
-## Questions?
-
-If you have questions about this Code of Conduct, please reach out to the project maintainers. We're here to help ensure a positive community experience for everyone.
-
----
-
-**Last Updated**: 2024
-**Version**: 1.0
+Dernière Mise à Jour : 2026
+Version : 1.0
